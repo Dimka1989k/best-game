@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Manrope } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
 const interFont = Inter({
   variable: '--font-inter',
+  subsets: ['latin'],
+});
+
+const manropeFont = Manrope({
+  variable: '--font-manrope',
   subsets: ['latin'],
 });
 
@@ -32,7 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interFont.variable} ${satoshi.variable} antialiased`}>{children}</body>
+      <body
+        className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
