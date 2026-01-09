@@ -57,7 +57,7 @@ export default function Login() {
 
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
-  function onSubmit(values: LoginFormValues) {
+  function onSubmitForm(values: LoginFormValues) {
     console.log(values);
   }
 
@@ -71,7 +71,7 @@ export default function Login() {
       </h1>
       <h2 className="text-gray text-inter-h2 mb-10 max-md:text-inter-main!">Welcome back!</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-115.5">
+        <form onSubmit={form.handleSubmit(onSubmitForm)} className="w-full max-w-115.5">
           <FormField
             control={form.control}
             name="email"
