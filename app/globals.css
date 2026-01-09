@@ -1,26 +1,197 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-red: #c62121;
+  --color-green: #82c91e;
+  --color-blue: #51a2ff;
+  --color-gray: #adb5bd;
+  --bg-form: #100f22;
+  --cards-bg: #423e6980;
+  --color-chat: #7c7ce854;
+  --color-dark: #302c55;
+  --bg-tabel: #adb5bd33;
+  --bg-mines: #0f0c29;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --text-color-black: var(--color-black);
+  --color-background: var(--background-main);
+  --text-color-white: var(--color-white);
+  --text-color-red: var(--color-red);
+  --text-color-green: var(--color-green);
+  --text-color-blue: var(--color-blue);
+  --text-color-gray: var(--color-gray);
+  --color-bg-form: var(--bg-form);
+  --color-cards-bg: var(--cards-bg);
+  --color-color-chat: var(--color-chat);
+  --color-color-dark: var(--color-dark);
+  --color-bg-tabel: var(--bg-tabel);
+  --color-bg-mines: var(--bg-mines);
+
+  --text-satoshi: 2rem;
+  --text-satoshi--weight: 900;
+  --text-satoshi--line-height: 130%;
+  --text-satoshi--letter-spacing: 0em;
+
+  --text-inter-h2: 1.5rem;
+  --text-inter-h2--weight: 600;
+  --text-inter-h2--line-height: 130%;
+  --text-inter-h2--letter-spacing: 0em;
+
+  --text-inter-main: 1rem;
+  --text-inter-main--weight: 400;
+  --text-inter-main--line-height: 150%;
+  --text-inter-main--letter-spacing: 0em;
+
+  --text-inter-secondary: 0.875rem;
+  --text-inter-secondary--weight: 500;
+  --text-inter-secondary--line-height: 140%;
+  --text-inter-secondary--letter-spacing: 0em;
+
+  --text-inter-small: 0.75rem;
+  --text-inter-small--weight: 400;
+  --text-inter-small--line-height: 140%;
+  --text-inter-small--letter-spacing: 0em;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 100px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .radius-sm {
+    border-radius: var(--radius-sm);
+  }
+
+  .radius-md {
+    border-radius: var(--radius-md);
+  }
+
+  .radius-lg {
+    border-radius: var(--radius-lg);
+  }
+
+  .radius-pill {
+    border-radius: var(--radius-pill);
+  }
+
+  .text-satoshi {
+    font-family: var(--font-satoshi);
+    font-size: var(--text-satoshi);
+    font-weight: var(--text-satoshi--weight);
+    line-height: var(--text-satoshi--line-height);
+    letter-spacing: var(--text-satoshi--letter-spacing);
+  }
+
+  .text-inter-h2 {
+    font-family: var(--font-inter);
+    font-size: var(--text-inter-h2);
+    font-weight: var(--text-inter-h2--weight);
+    line-height: var(--text-inter-h2--line-height);
+    letter-spacing: var(--text-inter-h2--letter-spacing);
+  }
+
+  .text-inter-main {
+    font-family: var(--font-inter);
+    font-size: var(--text-inter-main);
+    font-weight: var(--text-inter-main--weight);
+    line-height: var(--text-inter-main--line-height);
+    letter-spacing: var(--text-inter-main--letter-spacing);
+  }
+
+  .text-inter-secondary {
+    font-family: var(--font-inter);
+    font-size: var(--text-inter-secondary);
+    font-weight: var(--text-inter-secondary--weight);
+    line-height: var(--text-inter-secondary--line-height);
+    letter-spacing: var(--text-inter-secondary--letter-spacing);
+  }
+
+  .text-inter-small {
+    font-family: var(--font-inter);
+    font-size: var(--text-inter-small);
+    font-weight: var(--text-inter-small--weight);
+    line-height: var(--text-inter-small--line-height);
+    letter-spacing: var(--text-inter-small--letter-spacing);
+  }
+
+  .bg-main {
+    background: linear-gradient(180deg, #0f0c29 0%, #312c5f 50%, #24243e 100%);
+  }
+
+  .button-red {
+    background: linear-gradient(0deg, #ff0047 0%, #ff417b 100%);
+  }
+
+  .button-light-red {
+    background: linear-gradient(0deg, #ff6892 0%, #ff9bb9 100%);
+  }
+
+  .shadow-button-red {
+    box-shadow: 0px 0px 18px 0px #ff5a8c;
+  }
+
+  .button-yellow {
+    background: linear-gradient(180deg, #ffcd71 0%, #e59603 100%);
+  }
+
+  .shadow-button-yellow {
+    box-shadow: 0px 0px 18px 0px #fdc04e;
+  }
+
+  .button-yellow-light {
+    background: linear-gradient(180deg, #ffdea1 0%, #fcc869 100%);
+  }
+
+  .border-button {
+    border-radius: 100px;
+  }
+
+  .bg-gradient-chat {
+    background: linear-gradient(116.24deg, #3a88ff -6.88%, #004bbc 83.61%);
+  }
+
+  .shadow-message-chat {
+    box-shadow: 0px 2px 10px 0px #bfd8ff33;
+  }
+
+  .shadow-cards-games {
+    box-shadow: 0px 0px 100px 1px #ffffff4d;
+  }
+
+  .shadow-mines {
+    box-shadow: 0px 0px 16px 0px #ffffff40;
+  }
+
+  .shadow-avatar {
+    box-shadow: 0px 0px 16px 0px #ffcd71;
+  }
+
+  .bg-gradient-button-games {
+    background:
+      linear-gradient(116.24deg, #b9ff58 -6.88%, #74a62e 83.61%),
+      linear-gradient(116.24deg, #b9ff58 -6.88%, #69b400 83.61%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--font-inter);
+  }
 }
