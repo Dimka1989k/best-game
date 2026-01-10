@@ -157,7 +157,7 @@ export default function Login() {
             </span>
           </Button>
           <Link href="/auth/register">
-            <p className="text-blue text-center mb-4 max-md:mb-2 text-manrope">
+            <p className="text-blue active:text-active-link hover:text-color-link transition-colors duration-200 ease-in-out text-center mb-4 max-md:mb-2 text-manrope">
               Don`t have an account? Register
             </p>
           </Link>

@@ -14,6 +14,8 @@
   --bg-tabel: #adb5bd33;
   --bg-mines: #0f0c29;
   --color-lines: #848484;
+  --color-link: #aad2ff;
+  --active-link: #1f73d1;
 }
 
 @theme inline {
@@ -31,6 +33,8 @@
   --color-bg-tabel: var(--bg-tabel);
   --color-bg-mines: var(--bg-mines);
   --color-color-lines: var(--color-lines);
+  --color-color-link: var(--color-link);
+  --color-active-link: var(--active-link);
 
   --text-satoshi: 2rem;
   --text-satoshi--weight: 900;
