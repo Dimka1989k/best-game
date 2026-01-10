@@ -159,16 +159,25 @@
     background: linear-gradient(0deg, #ff0047 0%, #ff417b 100%);
   }
 
-  .button-light-red {
+  .button-red:hover {
+    box-shadow: 0px 0px 18px 0px #ff5a8c;
+  }
+
+  .button-red:active {
+    background: linear-gradient(0deg, #ba0034 0%, #ff185f 100%);
+  }
+
+  .button-red:disabled,
+  .button-red[aria-disabled='true'] {
     background: linear-gradient(0deg, #ff6892 0%, #ff9bb9 100%);
+    box-shadow: none;
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   .shadow-logo {
     box-shadow: 0px 0px 16px 2px #ff738f;
-  }
-
-  .shadow-button-red {
-    box-shadow: 0px 0px 18px 0px #ff5a8c;
   }
 
   .button-yellow {

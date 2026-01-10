@@ -31,7 +31,8 @@ export default function Login() {
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    mode: 'onChange',
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -84,11 +85,20 @@ export default function Login() {
                     {...field}
                     placeholder="Enter email"
                     className="bg-white radius-sm h-11 w-full max-w-95.5 text-black text-inter-secondary"
+                    style={
+                      form.formState.isSubmitted && isEmailValid
+                        ? {
+                            borderColor: 'var(--color-green)',
+                            borderWidth: '1.5px',
+                            boxShadow: 'none',
+                          }
+                        : undefined
+                    }
                   />
                 </FormControl>
                 <FormMessage className="text-red! text-inter-secondary" />
-                {!form.formState.errors.email && isEmailValid && (
-                  <p className="text-green text-inter-secondary">Successfully entered</p>
+                {form.formState.isSubmitted && !form.formState.errors.email && isEmailValid && (
+                  <p className="text-green! text-inter-secondary">Successfully entered</p>
                 )}
               </FormItem>
             )}
@@ -106,6 +116,15 @@ export default function Login() {
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter password"
                       className="bg-white radius-sm h-11 w-full text-black text-inter-secondary pr-10"
+                      style={
+                        form.formState.isSubmitted && isPasswordValid
+                          ? {
+                              borderColor: 'var(--color-green)',
+                              borderWidth: '1.5px',
+                              boxShadow: 'none',
+                            }
+                          : undefined
+                      }
                     />
                   </FormControl>
                   <Button
@@ -118,18 +137,19 @@ export default function Login() {
                   </Button>
                 </div>
                 <PasswordValidationMessage
-                  showError={!!fieldState.error}
+                  showError={form.formState.isSubmitted && !!fieldState.error}
                   lengthRule={lengthRule}
                   requirementsRules={requirementsRules}
-                  isValid={isPasswordValid}
+                  isValid={form.formState.isSubmitted && isPasswordValid}
                 />
               </FormItem>
             )}
           />
           <Button
+            disabled={form.formState.isSubmitted && !form.formState.isValid}
             type="submit"
             variant="default"
-            className="mb-8 mt-8 button-red w-full max-w-95.5 radius-pill py-3.5 h-full max-h-12 text-white! text-inter-main relative px-0 cursor-pointer"
+            className="transition-shadow duration-200 mb-8 mt-8 button-red w-full max-w-95.5 radius-pill py-3.5 h-full max-h-12 text-white! text-inter-main relative px-0 cursor-pointer"
           >
             <span className="mx-auto">Log in</span>
             <span className="absolute right-2 flex items-center">
