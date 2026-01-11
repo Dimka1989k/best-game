@@ -13,6 +13,9 @@
   --color-dark: #302c55;
   --bg-tabel: #adb5bd33;
   --bg-mines: #0f0c29;
+  --color-lines: #848484;
+  --color-link: #aad2ff;
+  --active-link: #1f73d1;
 }
 
 @theme inline {
@@ -29,11 +32,24 @@
   --color-color-dark: var(--color-dark);
   --color-bg-tabel: var(--bg-tabel);
   --color-bg-mines: var(--bg-mines);
+  --color-color-lines: var(--color-lines);
+  --color-color-link: var(--color-link);
+  --color-active-link: var(--active-link);
 
   --text-satoshi: 2rem;
   --text-satoshi--weight: 900;
   --text-satoshi--line-height: 130%;
   --text-satoshi--letter-spacing: 0em;
+
+  --text-satoshi-small: 1.5rem;
+  --text-satoshi-small--weight: 900;
+  --text-satoshi-small--line-height: 130%;
+  --text-satoshi-small--letter-spacing: 0em;
+
+  --text-manrope: 0.875rem;
+  --text-manrope--weight: 400;
+  --text-manrope--line-height: 140%;
+  --text-manrope--letter-spacing: 0em;
 
   --text-inter-h2: 1.5rem;
   --text-inter-h2--weight: 600;
@@ -56,6 +72,7 @@
   --text-inter-small--letter-spacing: 0em;
 
   --radius-sm: 8px;
+  --radius-smm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-pill: 100px;
@@ -64,6 +81,10 @@
 @layer utilities {
   .radius-sm {
     border-radius: var(--radius-sm);
+  }
+
+  .radius-smm {
+    border-radius: var(--radius-smm);
   }
 
   .radius-md {
@@ -84,6 +105,22 @@
     font-weight: var(--text-satoshi--weight);
     line-height: var(--text-satoshi--line-height);
     letter-spacing: var(--text-satoshi--letter-spacing);
+  }
+
+  .text-satoshi-small {
+    font-family: var(--font-satoshi);
+    font-size: var(--text-satoshi-small);
+    font-weight: var(--text-satoshi-small--weight);
+    line-height: var(--text-satoshi-small--line-height);
+    letter-spacing: var(--text-satoshi-small--letter-spacing);
+  }
+
+  .text-manrope {
+    font-family: var(--font-manrope);
+    font-size: var(--text-manrope);
+    font-weight: var(--text-manrope--weight);
+    line-height: var(--text-manrope--line-height);
+    letter-spacing: var(--text-manrope--letter-spacing);
   }
 
   .text-inter-h2 {
@@ -126,12 +163,25 @@
     background: linear-gradient(0deg, #ff0047 0%, #ff417b 100%);
   }
 
-  .button-light-red {
-    background: linear-gradient(0deg, #ff6892 0%, #ff9bb9 100%);
+  .button-red:hover {
+    box-shadow: 0px 0px 18px 0px #ff5a8c;
   }
 
-  .shadow-button-red {
-    box-shadow: 0px 0px 18px 0px #ff5a8c;
+  .button-red:active {
+    background: linear-gradient(0deg, #ba0034 0%, #ff185f 100%);
+  }
+
+  .button-red:disabled,
+  .button-red[aria-disabled='true'] {
+    background: linear-gradient(0deg, #ff6892 0%, #ff9bb9 100%);
+    box-shadow: none;
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .shadow-logo {
+    box-shadow: 0px 0px 16px 2px #ff738f;
   }
 
   .button-yellow {
