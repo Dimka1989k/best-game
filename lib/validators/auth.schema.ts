@@ -7,8 +7,20 @@ export const passwordRules = {
   special: /[!@#$%^&*]/,
 };
 
+export const usernameRules = {
+  pattern: /^[A-Z][a-z]+( [A-Z][a-z]+)?$/,
+};
+
 export const loginSchema = z.object({
   email: z.email({ message: 'This email is not valid' }).min(1, 'Email is required'),
+
+  userName: z
+    .string()
+    .min(3, { message: 'This username is not valid' })
+    .max(20, { message: 'This username is not valid' })
+    .regex(usernameRules.pattern, {
+      message: 'This username is not valid',
+    }),
 
   password: z
     .string()
