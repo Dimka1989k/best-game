@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import Link from 'next/link';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -27,11 +26,9 @@ import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { PasswordValidationMessage } from '@/utils/PasswordValidationMessage';
 
 import { useRegister } from '@/hooks/auth/useRegister';
-import type { ApiError } from '@/lib/api/api-error';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
-  const registerMutation = useRegister();
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -72,35 +69,14 @@ export default function Register() {
 
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
+  const registerMutation = useRegister();
+
   function onSubmitForm(values: RegisterFormValues) {
-    registerMutation.mutate(
-      {
-        username: values.userName,
-        email: values.email,
-        password: values.password,
-      },
-      {
-        onError: (error: ApiError) => {
-          if (error.status === 409) {
-            form.setError('email', {
-              message: 'Email already in use',
-            });
-            toast.error('Email already in use');
-            return;
-          }
-
-          if (error.status === 400) {
-            form.setError('userName', {
-              message: 'Invalid username',
-            });
-            toast.error('Invalid username');
-            return;
-          }
-
-          toast.error('Registration failed. Please try again.');
-        },
-      },
-    );
+    registerMutation.mutate({
+      username: values.userName,
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (

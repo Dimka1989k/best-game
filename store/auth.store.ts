@@ -1,44 +1,44 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { AuthSession } from '@/types/auth.types';
 
 type AuthState = {
-  accessToken: string | null;
-  refreshToken: string | null;
-  userId: string | null;
-  userName: string | null;
+  session: AuthSession | null;
   isAuthenticated: boolean;
 
-  login: (data: {
-    accessToken: string;
-    refreshToken: string;
-    userId: string;
-    userName: string;
-  }) => void;
-
+  login: (session: AuthSession) => void;
+  updateTokens: (tokens: Pick<AuthSession, 'accessToken' | 'refreshToken'>) => void;
   logout: () => void;
 };
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      accessToken: null,
-      refreshToken: null,
-      userId: null,
-      userName: null,
+      session: null,
       isAuthenticated: false,
 
-      login: (data) =>
+      login: (session) =>
         set({
-          ...data,
+          session,
           isAuthenticated: true,
+        }),
+
+      updateTokens: ({ accessToken, refreshToken }) =>
+        set((state) => {
+          if (!state.session) return state;
+
+          return {
+            session: {
+              ...state.session,
+              accessToken,
+              refreshToken,
+            },
+          };
         }),
 
       logout: () =>
         set({
-          accessToken: null,
-          refreshToken: null,
-          userId: null,
-          userName: null,
+          session: null,
           isAuthenticated: false,
         }),
     }),

@@ -4,9 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import Link from 'next/link';
 import { useState } from 'react';
-import type { ApiError } from '@/lib/api/api-error';
 import { useLogin } from '@/hooks/auth/useLogin';
-import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -64,23 +62,10 @@ export default function Login() {
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
   function onSubmitForm(values: LoginFormValues) {
-    loginMutation.mutate(
-      {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        onError: (error: ApiError) => {
-          if (error.status === 401) {
-            toast.error('Invalid email or password');
-          } else if (error.status === 404) {
-            toast.error('User does not exist');
-          } else {
-            toast.error('Something went wrong. Please try again.');
-          }
-        },
-      },
-    );
+    loginMutation.mutate({
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (

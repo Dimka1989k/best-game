@@ -1,3 +1,4 @@
+import type { AuthSession, RefreshSession } from '@/types/auth.types';
 import { apiFetch } from './client';
 
 export type LoginPayload = {
@@ -5,40 +6,26 @@ export type LoginPayload = {
   password: string;
 };
 
-export type RegisterPayload = {
+export type RegisterPayload = LoginPayload & {
   username: string;
-  email: string;
-  password: string;
 };
 
 export function loginApi(data: LoginPayload) {
-  return apiFetch<{
-    accessToken: string;
-    refreshToken: string;
-    userId: string;
-    userName: string;
-  }>('/auth/login', {
+  return apiFetch<AuthSession>('/auth/login', {
     method: 'POST',
     body: JSON.stringify(data),
   });
 }
 
 export function registerApi(data: RegisterPayload) {
-  return apiFetch<{
-    username: string;
-    email: string;
-  }>('/auth/register', {
+  return apiFetch<{ username: string; email: string }>('/auth/register', {
     method: 'POST',
     body: JSON.stringify(data),
   });
 }
 
 export function refreshTokenApi(refreshToken: string) {
-  return apiFetch<{
-    accessToken: string;
-    refreshToken: string;
-    userId: string;
-  }>('/auth/refresh', {
+  return apiFetch<RefreshSession>('/auth/refresh', {
     method: 'POST',
     body: JSON.stringify({ refreshToken }),
   });
