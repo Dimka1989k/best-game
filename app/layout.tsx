@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { QueryProvider } from '@/providers/QueryProvider';
+import { Toaster } from '@/components/ui/sonner';
 
 const interFont = Inter({
   variable: '--font-inter',
@@ -40,7 +42,10 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} antialiased`}
       >
-        {children}
+        <QueryProvider>
+          {children}
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );

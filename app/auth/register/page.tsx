@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,15 +22,19 @@ import Logo from '@/assets/logo.svg';
 
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
-import { loginSchema, type LoginFormValues } from '@/lib/validators/auth.schema';
+import { registerSchema, type RegisterFormValues } from '@/lib/validators/auth.schema';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { PasswordValidationMessage } from '@/utils/PasswordValidationMessage';
 
+import { useRegister } from '@/hooks/auth/useRegister';
+import type { ApiError } from '@/lib/api/api-error';
+
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const registerMutation = useRegister();
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     defaultValues: {
@@ -67,8 +72,35 @@ export default function Register() {
 
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
-  function onSubmitForm(values: LoginFormValues) {
-    console.log(values);
+  function onSubmitForm(values: RegisterFormValues) {
+    registerMutation.mutate(
+      {
+        username: values.userName,
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onError: (error: ApiError) => {
+          if (error.status === 409) {
+            form.setError('email', {
+              message: 'Email already in use',
+            });
+            toast.error('Email already in use');
+            return;
+          }
+
+          if (error.status === 400) {
+            form.setError('userName', {
+              message: 'Invalid username',
+            });
+            toast.error('Invalid username');
+            return;
+          }
+
+          toast.error('Registration failed. Please try again.');
+        },
+      },
+    );
   }
 
   return (
@@ -165,6 +197,7 @@ export default function Register() {
                     />
                   </FormControl>
                   <Button
+                    disabled={registerMutation.isPending}
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-black transition cursor-pointer px-0!"

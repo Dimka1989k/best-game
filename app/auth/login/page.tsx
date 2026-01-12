@@ -4,6 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import Link from 'next/link';
 import { useState } from 'react';
+import type { ApiError } from '@/lib/api/api-error';
+import { useLogin } from '@/hooks/auth/useLogin';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -28,6 +31,7 @@ import { PasswordValidationMessage } from '@/utils/PasswordValidationMessage';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const loginMutation = useLogin();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -60,7 +64,23 @@ export default function Login() {
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
   function onSubmitForm(values: LoginFormValues) {
-    console.log(values);
+    loginMutation.mutate(
+      {
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onError: (error: ApiError) => {
+          if (error.status === 401) {
+            toast.error('Invalid email or password');
+          } else if (error.status === 404) {
+            toast.error('User does not exist');
+          } else {
+            toast.error('Something went wrong. Please try again.');
+          }
+        },
+      },
+    );
   }
 
   return (
@@ -146,7 +166,7 @@ export default function Login() {
             )}
           />
           <Button
-            disabled={form.formState.isSubmitted && !form.formState.isValid}
+            disabled={loginMutation.isPending}
             type="submit"
             variant="default"
             className="transition-shadow duration-200 mb-8 mt-8 button-red w-full max-w-95.5 radius-pill py-3.5 h-full max-h-12 text-white! text-inter-main relative px-0 cursor-pointer"
