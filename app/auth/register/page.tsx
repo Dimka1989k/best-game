@@ -21,15 +21,17 @@ import Logo from '@/assets/logo.svg';
 
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
-import { loginSchema, type LoginFormValues } from '@/lib/validators/auth.schema';
+import { registerSchema, type RegisterFormValues } from '@/lib/validators/auth.schema';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { PasswordValidationMessage } from '@/utils/PasswordValidationMessage';
+
+import { useRegister } from '@/hooks/auth/useRegister';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     defaultValues: {
@@ -67,8 +69,14 @@ export default function Register() {
 
   const isEmailValid = emailValue.length > 0 && !form.formState.errors.email;
 
-  function onSubmitForm(values: LoginFormValues) {
-    console.log(values);
+  const registerMutation = useRegister();
+
+  function onSubmitForm(values: RegisterFormValues) {
+    registerMutation.mutate({
+      username: values.userName,
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
@@ -165,6 +173,7 @@ export default function Register() {
                     />
                   </FormControl>
                   <Button
+                    disabled={registerMutation.isPending}
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-black transition cursor-pointer px-0!"
