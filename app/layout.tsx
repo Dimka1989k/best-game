@@ -4,6 +4,11 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { Toaster } from '@/components/ui/sonner';
+import Header from './components/MainPAge/Header';
+import { HideOnPath } from './routing/HideOnPath';
+
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from './components/MainPAge/AppSideBar';
 
 const interFont = Inter({
   variable: '--font-inter',
@@ -39,12 +44,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} antialiased`}
-      >
+      <body className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} bg-main`}>
         <QueryProvider>
-          {children}
-          <Toaster />
+          <SidebarProvider defaultOpen={false}>
+            <HideOnPath path={['/auth/login', '/auth/register']}>
+              <Header />
+              <AppSidebar />
+            </HideOnPath>
+            {children}
+            <Toaster />
+          </SidebarProvider>
         </QueryProvider>
       </body>
     </html>
