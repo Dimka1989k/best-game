@@ -9,7 +9,6 @@ import { HideOnPath } from './routing/HideOnPath';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from './components/MainPAge/AppSideBar';
-import { AuthGate } from './routing/AuthGate';
 
 const interFont = Inter({
   variable: '--font-inter',
@@ -48,12 +47,10 @@ export default function RootLayout({
       <body className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} bg-main`}>
         <QueryProvider>
           <SidebarProvider defaultOpen={false}>
-            <AuthGate>
-              <HideOnPath path={['/auth/login', '/auth/register']}>
-                <Header />
-                <AppSidebar />
-              </HideOnPath>
-            </AuthGate>
+            <HideOnPath path={['/auth/login', '/auth/register']}>
+              <Header />
+              <AppSidebar />
+            </HideOnPath>
             {children}
             <Toaster />
           </SidebarProvider>
