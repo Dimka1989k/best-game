@@ -1,5 +1,5 @@
 'use client';
 
 export default function LiveChat() {
-  return <div>LiveChat</div>;
+  return <div className="max-xl:hidden">LiveChat</div>;
 }

@@ -8,6 +8,7 @@ import iconSettings from '@/assets/icon-settings.svg';
 import { Button } from '@/components/ui/button';
 import iconLogOut from '@/assets/login-icon.svg';
 import burgerIcon from '@/assets/burger.svg';
+import Link from 'next/link';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
@@ -24,9 +25,11 @@ export default function Header() {
         <Button className="px-0 py-0 cursor-pointer" onClick={toggleSidebar}>
           <Image src={burgerIcon} alt="burgerIcon" className="md:hidden" />
         </Button>
-        <p className="text-satoshi-small text-white max-md:hidden">Blaze</p>
-        <Image src={Logo} alt="logo" className="max-md:hidden" />
-        <p className="text-satoshi-small text-white max-md:hidden">Casino</p>
+        <Link href="/" className="flex gap-2 items-center justify-center">
+          <p className="text-satoshi-small text-white max-md:hidden">Blaze</p>
+          <Image src={Logo} alt="logo" className="max-md:hidden" />
+          <p className="text-satoshi-small text-white max-md:hidden">Casino</p>
+        </Link>
       </div>
       <div className="flex gap-15.5 max-md:gap-0">
         <div className="flex items-center justify-center max-md:justify-between max-md:gap-0 gap-4">
