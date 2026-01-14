@@ -1,14 +1,18 @@
 'use client';
 
-import { redirect } from 'next/navigation';
-import { useAuthStore } from '@/store/auth.store';
+import { AuthGate } from '@/app/routing/AuthGate';
+import LeaderBoard from './components/MainPAge/LeaderBoard';
+import LiveChat from './components/MainPAge/LiveChat';
+import GameList from './components/MainPAge/GameList';
 
 export default function Home() {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-
-  if (!isAuthenticated) {
-    redirect('/auth/login');
-  }
-
-  return <div>Main Screen</div>;
+  return (
+    <AuthGate>
+      <div className="flex px-12 pt-10 pb-13.5 justify-between items-center">
+        <LeaderBoard />
+        <GameList />
+        <LiveChat />
+      </div>
+    </AuthGate>
+  );
 }

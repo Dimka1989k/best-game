@@ -5,10 +5,12 @@ import type { AuthSession } from '@/types/auth.types';
 type AuthState = {
   session: AuthSession | null;
   isAuthenticated: boolean;
+  hasHydrated: boolean;
 
   login: (session: AuthSession) => void;
   updateTokens: (tokens: Pick<AuthSession, 'accessToken' | 'refreshToken'>) => void;
   logout: () => void;
+  setHasHydrated: () => void;
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -16,6 +18,7 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       session: null,
       isAuthenticated: false,
+      hasHydrated: false,
 
       login: (session) =>
         set({
@@ -41,9 +44,14 @@ export const useAuthStore = create<AuthState>()(
           session: null,
           isAuthenticated: false,
         }),
+
+      setHasHydrated: () => set({ hasHydrated: true }),
     }),
     {
       name: 'auth-storage',
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated();
+      },
     },
   ),
 );

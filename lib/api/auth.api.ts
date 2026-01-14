@@ -30,3 +30,12 @@ export function refreshTokenApi(refreshToken: string) {
     body: JSON.stringify({ refreshToken }),
   });
 }
+
+export function logoutApi(accessToken: string) {
+  return apiFetch<{ message: string }>('/auth/logout', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+}
