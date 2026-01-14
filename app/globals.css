@@ -18,9 +18,11 @@
   --color-link: #aad2ff;
   --active-link: #1f73d1;
   --gray: #adb5bd;
+  --bg-black: #24243f;
 }
 
 @theme inline {
+  --color-bg-black: var(--bg-black);
   --color-gray: var(--gray);
   --text-color-black: var(--color-black);
   --color-background: var(--background-main);
@@ -204,6 +206,10 @@
     opacity: 0.7;
     cursor: not-allowed;
     pointer-events: none;
+  }
+
+  .shadow-cup {
+    filter: drop-shadow(0px 4px 14px #ffcd71);
   }
 
   .shadow-logo {
