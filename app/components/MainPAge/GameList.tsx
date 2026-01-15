@@ -6,7 +6,7 @@ import { GAME_LIST } from './gameList.data';
 
 export default function GameList() {
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-6 max-md:gap-4">
+    <div className="grid grid-cols-2 grid-rows-2 gap-6 max-md:gap-4 md:mt-8.5 justify-items-center">
       {GAME_LIST.map((game) => (
         <Card
           key={game.id}
