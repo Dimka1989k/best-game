@@ -1,11 +1,6 @@
-import { apiFetch } from './client';
+import { apiFetch } from '@/lib/api/client';
 import type { LeaderboardPeriod, LeaderboardResponse } from '@/types/leaderboard.types';
 
-export function getLeaderboardApi(accessToken: string, period: LeaderboardPeriod = 'all') {
-  return apiFetch<LeaderboardResponse>(`/leaderboard?period=${period}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+export function getLeaderboard(period: LeaderboardPeriod = 'all') {
+  return apiFetch<LeaderboardResponse>(`/leaderboard?period=${period}`);
 }

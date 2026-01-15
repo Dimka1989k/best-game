@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import Image from 'next/image';
 
 import cup from '@/assets/cup.svg';
@@ -9,8 +8,8 @@ import firstPlace from '@/assets/1place.svg';
 import secondPlace from '@/assets/2place.svg';
 import thirdPlace from '@/assets/3place.svg';
 
-import { useAuthStore } from '@/store/auth.store';
-import { useLeaderboardStore } from '@/store/leaderboard.store';
+import { useLeaderboardQuery } from '@/hooks/useLeaderboardQuery';
+import type { LeaderboardPlayer } from '@/types/leaderboard.types';
 
 function getPlaceIcon(rank: number) {
   if (rank === 2) return secondPlace;
@@ -19,23 +18,21 @@ function getPlaceIcon(rank: number) {
 }
 
 export default function LeaderBoard() {
-  const { session, hasHydrated } = useAuthStore();
-  const { players, isLoading, fetchLeaderboard } = useLeaderboardStore();
-
-  useEffect(() => {
-    if (!hasHydrated || !session?.accessToken) return;
-    fetchLeaderboard(session.accessToken, 'all');
-  }, [hasHydrated, session?.accessToken, fetchLeaderboard]);
+  const { data, isLoading, isError } = useLeaderboardQuery('all');
 
   if (isLoading) {
     return <div className="bg-cards-bg p-4 radius-md text-white">Loading leaderboard...</div>;
   }
 
-  if (!players.length) {
+  if (isError) {
+    return <div className="bg-cards-bg p-4 radius-md text-white">Failed to load leaderboard</div>;
+  }
+
+  if (!data || data.players.length === 0) {
     return <div className="bg-cards-bg p-4 radius-md text-white">No leaderboard data</div>;
   }
 
-  const [topPlayer, ...otherPlayers] = players;
+  const [topPlayer, ...otherPlayers] = data.players;
 
   return (
     <div className="relative bg-cards-bg p-4 radius-md">
@@ -63,7 +60,7 @@ export default function LeaderBoard() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        {otherPlayers.map((player) => {
+        {otherPlayers.map((player: LeaderboardPlayer) => {
           const placeIcon = getPlaceIcon(player.rank);
           return (
             <div
