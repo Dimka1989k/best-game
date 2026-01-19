@@ -9,7 +9,7 @@
   --color-blue: #51a2ff;
   --color-gray: #adb5bd;
   --bg-form: #100f22;
-  --cards-bg: #423e6980;
+  --cards-bg: #423e69;
   --color-chat: #7c7ce854;
   --color-dark: #302c55;
   --bg-tabel: #adb5bd33;
@@ -253,13 +253,22 @@
   }
 
   .shadow-avatar {
-    box-shadow: 0px 0px 16px 0px #ffcd71;
+    filter: drop-shadow(0px 0px 6px #ffcd71);
   }
 
   .bg-gradient-button-games {
     background:
       linear-gradient(116.24deg, #b9ff58 -6.88%, #74a62e 83.61%),
       linear-gradient(116.24deg, #b9ff58 -6.88%, #69b400 83.61%);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -275,10 +284,17 @@
     margin: 0;
     padding: 0;
     min-height: 100%;
+    overflow-y: auto;
+    font-family: var(--font-inter);
   }
 
-  body {
-    font-family: var(--font-inter);
+  body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: linear-gradient(0deg, #ff0047 0%, #ff417b 100%);
+    border-radius: 100px;
   }
 }
 

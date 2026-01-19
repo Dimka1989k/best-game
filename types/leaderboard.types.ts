@@ -6,6 +6,7 @@ export interface LeaderboardPlayer {
   totalWagered: number;
   gamesPlayed: number;
   winRate: number;
+  avatarURL: string;
 }
 
 export interface LeaderboardResponse {
