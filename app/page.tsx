@@ -3,8 +3,10 @@
 import { AuthGate } from '@/app/routing/AuthGate';
 import LeaderBoard from './components/MainPage/LeaderBoard';
 import LiveChat from './components/MainPage/Chat/LiveChat';
-import GameList from './components/MainPage/GameList/GameList';
+
 import DrawerChat from './components/MainPage/Chat/DrawerChat';
+
+import GameList from './components/MainPage/GameList/GameList';
 
 export default function Home() {
   return (
