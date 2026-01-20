@@ -5,12 +5,11 @@ import { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import iconChat from '@/assets/chatIcon.svg';
-import avatarIcon from '@/assets/avatar.jpg';
 import arrowUp from '@/assets/arrowUp.svg';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { ChatMessageItem } from './ChatMessageItem';
 
 import type { ChatMessage } from '@/types/chat.types';
 import { useChatHistory } from '@/hooks/useChatHistory';
@@ -53,22 +52,22 @@ export default function LiveChat() {
     setText('');
   }, [text, sendMessage]);
 
-  const handleInputKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key !== 'Enter') return;
-
-      e.preventDefault();
-      handleSendMessage();
-    },
-    [handleSendMessage],
-  );
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    handleSendMessage();
+  };
 
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const ESTIMATED_ROW_HEIGHT = 120;
+
+  const getScrollElement = useCallback(() => parentRef.current, []);
+
   const virtualizer = useVirtualizer({
     count: messages.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 120,
+    getScrollElement,
+    estimateSize: () => ESTIMATED_ROW_HEIGHT,
     overscan: 8,
   });
 
@@ -120,37 +119,11 @@ export default function LiveChat() {
                 const msg = messages[item.index];
                 if (!msg) return null;
                 return (
-                  <div
+                  <ChatMessageItem
                     key={msg._id}
-                    data-index={item.index}
-                    ref={virtualizer.measureElement}
-                    style={{ paddingBottom: 16 }}
-                  >
-                    <div className="relative bg-bg-black radius-md p-4 shadow-message-chat pb-6">
-                      <div className="absolute shadow-avatar -top-4 -left-4 rounded-full p-0.5 bg-[linear-gradient(180deg,#FFCD71_0%,#E59603_100%)]">
-                        <Avatar className="w-11 h-11">
-                          <AvatarImage
-                            src={msg.avatarURL ?? avatarIcon.src}
-                            alt={msg.username}
-                            className="object-cover"
-                          />
-                        </Avatar>
-                      </div>
-                      <div className="flex justify-between mt-2">
-                        <p className="text-white text-inter-bold">{msg.username}</p>
-                        <p className="text-gray text-inter-secondary">
-                          {new Date(msg.createdAt).toLocaleTimeString('uk-UA', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </p>
-                      </div>
-                      <div className="bg-gray h-px my-2" />
-                      <p className="text-inter-main text-gray whitespace-pre-wrap break-words">
-                        {msg.text}
-                      </p>
-                    </div>
-                  </div>
+                    message={msg}
+                    measureRef={virtualizer.measureElement}
+                  />
                 );
               })}
             </div>

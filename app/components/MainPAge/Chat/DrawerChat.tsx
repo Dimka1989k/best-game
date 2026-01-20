@@ -2,6 +2,8 @@
 
 import { useCallback, useMemo, useState, useRef } from 'react';
 
+import { ChatMessageDrawer } from './ChatMessageDrawer';
+
 import type { ChatMessage } from '@/types/chat.types';
 import { useChatHistory } from '@/hooks/useChatHistory';
 import { useChatSocket } from '@/hooks/useChatSocket';
@@ -9,11 +11,9 @@ import { useChatSocket } from '@/hooks/useChatSocket';
 import chatButton from '@/assets/buttonchat.svg';
 
 import iconChat from '@/assets/chatIcon.svg';
-import avatarIcon from '@/assets/avatar.jpg';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import arrowUp from '@/assets/arrowUp.svg';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
 import {
   Drawer,
@@ -62,15 +62,11 @@ export default function DrawerChat() {
     setText('');
   }, [text, sendMessage]);
 
-  const handleInputKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key !== 'Enter') return;
-
-      e.preventDefault();
-      handleSendMessage();
-    },
-    [handleSendMessage],
-  );
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    handleSendMessage();
+  };
 
   return (
     <>
@@ -87,7 +83,7 @@ export default function DrawerChat() {
         }}
       >
         <DrawerTrigger>
-          <div className="xl:hidden absolute z-999 flex items-center justify-center max-sm:top-140 top-210 right-4 button-yellow p-0 w-12 h-12 radius-pill cursor-pointer">
+          <div className="xl:hidden absolute z-9 flex items-center justify-center max-sm:top-140 top-210 right-4 button-yellow p-0 w-12 h-12 radius-pill cursor-pointer">
             <Image src={chatButton} alt="chatButton" />
           </div>
         </DrawerTrigger>
@@ -112,38 +108,10 @@ export default function DrawerChat() {
               className="flex-1 flex flex-col gap-4 mt-4 overflow-y-auto pt-6 pr-8 pl-8"
             >
               {messages.map((msg) => (
-                <div
-                  key={msg._id}
-                  className="relative z-10 shadow-message-chat bg-bg-black w-full radius-md p-4"
-                >
-                  <div className="flex absolute z-20 -top-5 left-0">
-                    <div className="rounded-full p-0.5 bg-[linear-gradient(180deg,#FFCD71_0%,#E59603_100%)] shadow-avatar">
-                      <Avatar className="w-11 h-11">
-                        <AvatarImage
-                          src={msg.avatarURL ?? avatarIcon.src}
-                          alt={msg.username}
-                          className="cursor-pointer object-cover"
-                        />
-                      </Avatar>
-                    </div>
-                  </div>
-                  <div className="flex mt-2 justify-between">
-                    <p className="text-white text-inter-bold">{msg.username}</p>
-                    <p className="text-gray text-inter-secondary">
-                      {new Date(msg.createdAt).toLocaleTimeString('uk-UA', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                  </div>
-                  <div className="bg-gray w-full h-px mt-2 mb-2" />
-                  <p className="text-gray text-inter-main wrap-anywhere whitespace-pre-wrap">
-                    {msg.text}
-                  </p>
-                </div>
+                <ChatMessageDrawer key={msg._id} message={msg} />
               ))}
             </div>
-            <div className="absolute w-full bottom-10 flex justify-center items-center gap-4 mt-4 z-99999 px-6">
+            <div className="relative w-full flex justify-center items-center gap-4 mt-4 z-99999 px-6">
               <Input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
