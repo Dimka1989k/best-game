@@ -1,12 +1,12 @@
 'use client';
 
 import { AuthGate } from '@/app/routing/AuthGate';
-import LeaderBoard from './components/MainPage/LeaderBoard';
-import LiveChat from './components/MainPage/Chat/LiveChat';
+import LeaderBoard from './components/MainPAge/LeaderBoard';
+import LiveChat from './components/MainPAge/Chat/LiveChat';
 
-import DrawerChat from './components/MainPage/Chat/DrawerChat';
+import DrawerChat from './components/MainPAge/Chat/DrawerChat';
 
-import GameList from './components/MainPage/GameList/GameList';
+import GameList from './components/MainPAge/GameList/GameList';
 
 export default function Home() {
   return (
