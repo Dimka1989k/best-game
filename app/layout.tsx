@@ -6,10 +6,10 @@ import { QueryProvider } from '@/providers/QueryProvider';
 import { Toaster } from '@/components/ui/sonner';
 
 import { HideOnPath } from './routing/HideOnPath';
-import { AppSidebar } from './components/MainPAge/AppSideBar';
+import { AppSidebar } from './components/MainPage/AppSideBar';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
-import Header from './components/MainPAge/Header';
+import Header from './components/MainPage/Header';
 
 const interFont = Inter({
   variable: '--font-inter',
