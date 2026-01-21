@@ -4,11 +4,12 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { Toaster } from '@/components/ui/sonner';
-import Header from './components/MainPAge/Header';
+
 import { HideOnPath } from './routing/HideOnPath';
+import { AppSidebar } from './components/MainPage/AppSideBar';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from './components/MainPAge/AppSideBar';
+import Header from './components/MainPage/Header';
 
 const interFont = Inter({
   variable: '--font-inter',
