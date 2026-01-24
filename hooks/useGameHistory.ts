@@ -5,13 +5,12 @@ import { mapCrashBetsToHistory } from '@/lib/mappers/crashHistory.mapper';
 export function useGameHistory(gameType: 'crash') {
   return useQuery({
     queryKey: ['game-history', gameType],
-
     queryFn: async () => {
       const bets = await getCrashBetsHistory(10, 0);
       return mapCrashBetsToHistory(bets);
     },
 
-    refetchInterval: 2000,
-    staleTime: 0,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
   });
 }

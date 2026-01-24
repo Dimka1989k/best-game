@@ -5,6 +5,7 @@ import bgSpace from '@/assets/planet/bg-space.jpg';
 import { CrashCanvas } from './CrashCanvas';
 import { CrashResultOverlay } from './CrashResultOverlay';
 import { MULTIPLIER_SCALE, TIME_SCALE } from './crashStage.constants';
+import { useCrashStore } from '@/store/useCrashStore';
 
 type Props = {
   state: string;
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export function CrashStage({ state, multiplier }: Props) {
+  const status = useCrashStore((s) => s.status);
+
   return (
     <div
       className="relative flex flex-col justify-center items-center radius-md text-center
@@ -39,13 +42,16 @@ export function CrashStage({ state, multiplier }: Props) {
       )}
       <CrashCanvas started={state === 'running'} multiplier={multiplier} />
       <CrashResultOverlay />
+      {!status && (
+        <p className="text-gray text-satoshi text-[clamp(24px,5vw,64px)]! relative z-10">
+          {multiplier.toFixed(2)}X
+        </p>
+      )}
+
       {state === 'waiting' && (
-        <>
-          <p className="text-gray text-satoshi text-[clamp(24px,5vw,64px)]!">1.00X</p>
-          <p className="text-gray text-inter-bold text-[clamp(16px,3vw,32px)]!">
-            Waiting for bets...
-          </p>
-        </>
+        <p className="text-gray text-inter-bold text-[clamp(16px,3vw,32px)]!">
+          Waiting for bets...
+        </p>
       )}
     </div>
   );

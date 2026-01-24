@@ -2,7 +2,7 @@ import { useCrashStore } from '@/store/useCrashStore';
 import { useEffect } from 'react';
 
 export function CrashResultOverlay() {
-  const { status, crashPoint, resetRound } = useCrashStore();
+  const { status, crashPoint, resetRound, multiplier } = useCrashStore();
 
   useEffect(() => {
     if (!status) return;
@@ -22,7 +22,7 @@ export function CrashResultOverlay() {
       {status === 'won' ? (
         <div className="relative z-10 flex flex-col w-full max-w-48 h-full max-h-23.5 bg-overlay backdrop-blur-lg shadow-overlay p-2 radius-md">
           <p className="text-inter-h2 text-green text-[clamp(40px,2vw,64px)]! font-bold!">
-            {crashPoint?.toFixed(2)}x
+            {multiplier.toFixed(2)}x
           </p>
           <p className="text-inter-h2 text-green text-[clamp(24px,1vw,32px)]!">Current Payout</p>
         </div>

@@ -14,18 +14,23 @@ import { useGameHistory } from '@/hooks/useGameHistory';
 import { CrashStage } from '../components/Сrash/CrashStage';
 
 import { CrashBetForm } from '../components/Сrash/CrashBetForm';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Crash() {
   const { state, multiplier } = useCrashStore();
   const { data: history, isLoading } = useGameHistory('crash');
   const { finalizeBet } = useCrashGame();
   const roundFinished = useCrashStore((s) => s.roundFinished);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!roundFinished) return;
     finalizeBet();
+    queryClient.invalidateQueries({
+      queryKey: ['game-history', 'crash'],
+    });
     useCrashStore.getState().resetRoundFinished();
-  }, [roundFinished, finalizeBet]);
+  }, [roundFinished, finalizeBet, queryClient]);
 
   return (
     <>
@@ -44,7 +49,9 @@ export default function Crash() {
           <p className="2xl:text-center text-white text-satoshi text-[clamp(24px,2vw,32px)]! mb-4 mt-10 max-md:mt-6 max-md:text-2xl!">
             Game history
           </p>
-          <CrashHistoryTable history={history} isLoading={isLoading} />
+          <div className="pb-5">
+            <CrashHistoryTable history={history} isLoading={isLoading} />
+          </div>
         </div>
       </div>
     </>
