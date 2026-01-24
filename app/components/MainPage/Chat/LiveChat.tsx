@@ -80,7 +80,7 @@ export default function LiveChat() {
   }, [messages.length, virtualizer]);
 
   return (
-    <div className="max-xl:hidden flex flex-col justify-center relative -left-6">
+    <div className="max-xl:hidden flex flex-col relative -left-6">
       <Image src={iconChat} alt="Chat" className="mb-2 mx-auto" />
       <div className="bg-gray w-62.5 h-px mb-2 mx-auto" />
       <div className="flex justify-between px-10 mb-6">

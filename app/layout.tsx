@@ -10,6 +10,7 @@ import { AppSidebar } from './components/MainPage/AppSideBar';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
 import Header from './components/MainPage/Header';
+import { AppBootstrap } from './AppBootstrap';
 
 const interFont = Inter({
   variable: '--font-inter',
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} bg-main`}>
         <QueryProvider>
           <SidebarProvider defaultOpen={false}>
+            <AppBootstrap />
             <HideOnPath path={['/auth/login', '/auth/register']}>
               <Header />
               <AppSidebar />
