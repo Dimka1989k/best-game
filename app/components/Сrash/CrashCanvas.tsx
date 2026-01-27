@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import rocket from '@/assets/planet/rocket.png';
+import rocket from '@/assets/rocket.png';
 import mars from '@/assets/planet/mars.jpg';
 import earth from '@/assets/planet/earthmap.jpg';
 import jupiter from '@/assets/planet/jupitermap.jpg';
@@ -17,23 +17,22 @@ type CrashCanvasProps = {
   multiplier: number;
 };
 
-type Star = {
+type SpaceObject = {
   x: number;
   y: number;
   r: number;
   speed: number;
+};
+
+type Star = SpaceObject & {
   alpha: number;
 };
 
-type Planet = {
+type Planet = SpaceObject & {
   img: HTMLImageElement;
   srcIndex: number;
-  x: number;
-  y: number;
-  r: number;
   vx: number;
   vy: number;
-  speed: number;
   rotation: number;
   rotationSpeed: number;
   z: number;
@@ -238,7 +237,7 @@ export function CrashCanvas({ started, multiplier }: CrashCanvasProps) {
       lastTime = now;
       if (delta > 0.05) delta = 0.05;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 
       if (startedRef.current) {
         drawStars();
@@ -277,8 +276,8 @@ export function CrashCanvas({ started, multiplier }: CrashCanvasProps) {
         if (curr && next) {
           const pathAngle = Math.atan2(next.y - curr.y, next.x - curr.x);
 
-          const BASE_ROTATION = Math.PI / 4;
-          const TAIL_TILT = Math.PI * 0.06;
+          const BASE_ROTATION = Math.PI / 3;
+          const TAIL_TILT = Math.PI * 0.09;
           const angle = pathAngle + BASE_ROTATION - TAIL_TILT;
 
           const size = getRocketSize();
@@ -298,8 +297,8 @@ export function CrashCanvas({ started, multiplier }: CrashCanvasProps) {
 
           ctx.save();
           ctx.translate(
-            curr.x + dx * size * 0.4 + nx * jitter,
-            curr.y + dy * size * 0.4 + ny * jitter,
+            curr.x + dx * size * 0.45 + nx * jitter,
+            curr.y + dy * size * 0.45 + ny * jitter,
           );
           ctx.rotate(angle + jitterRot);
           ctx.drawImage(rocketImg, -size / 2, -size / 2, size, size);

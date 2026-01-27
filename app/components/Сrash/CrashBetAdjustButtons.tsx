@@ -7,12 +7,15 @@ import { BET_ADJUST_BUTTONS, type BetAdjustAction } from './crashBetButtons.cons
 
 type Props = {
   onSyncAmount: () => void;
+  getCurrentAmount: () => number;
 };
 
-export function CrashBetAdjustButtons({ onSyncAmount }: Props) {
+export function CrashBetAdjustButtons({ onSyncAmount, getCurrentAmount }: Props) {
   const store = useCrashStore.getState();
 
   const handleAction = (action: BetAdjustAction) => {
+    store.setAmount(getCurrentAmount());
+
     switch (action) {
       case 'half':
         store.halfAmount();

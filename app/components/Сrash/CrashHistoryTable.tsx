@@ -10,20 +10,17 @@ import {
 } from '@/components/ui/table';
 
 import type { GameHistoryRow } from '@/types/game-history.types';
+import { memo } from 'react';
+import { CrashBetStatus } from '@/types/crash.types';
 
 type Props = {
   history?: GameHistoryRow[];
   isLoading: boolean;
 };
 
-export function CrashHistoryTable({ history, isLoading }: Props) {
+export const CrashHistoryTable = memo(function CrashHistoryTable({ history, isLoading }: Props) {
   return (
-    <div
-      className="overflow-x-auto scrollbar-hide relative rounded-t-2xl overflow-hidden
-        before:absolute before:top-10 before:left-0.5 before:h-full before:w-px before:bg-bg-tabel
-        after:absolute after:top-10 after:right-0.5 after:h-full after:w-px after:bg-bg-tabel
-      "
-    >
+    <div className="overflow-x-auto scrollbar-hide relative rounded-t-2xl overflow-hidden before:absolute before:top-10 before:left-0 before:h-full before:w-px before:bg-bg-tabel after:absolute after:top-10 after:right-0 after:h-full after:w-px after:bg-bg-tabel">
       <Table className="w-332.5 2xl:w-full mx-auto">
         <TableHeader className="bg-bg-tabel">
           <TableRow className="text-gray text-inter-bold!">
@@ -43,7 +40,7 @@ export function CrashHistoryTable({ history, isLoading }: Props) {
             </TableRow>
           )}
           {history?.map((row) => {
-            const isWon = row.status === 'won';
+            const isWon = row.status === CrashBetStatus.Won;
             return (
               <TableRow key={row.id}>
                 <TableCell className="text-white pl-8">
@@ -68,4 +65,4 @@ export function CrashHistoryTable({ history, isLoading }: Props) {
       </Table>
     </div>
   );
-}
+});

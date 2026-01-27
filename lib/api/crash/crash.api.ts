@@ -1,13 +1,11 @@
 import { useAuthStore } from '@/store/auth.store';
+import { CrashGameState } from '@/types/crash.types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-const getAuthHeaders = () => {
+const getAuthHeaders = (): HeadersInit => {
   const token = useAuthStore.getState().session?.accessToken;
-
-  if (!token) {
-    throw new Error('No access token');
-  }
+  if (!token) throw new Error('No access token');
 
   return {
     'Content-Type': 'application/json',
@@ -49,7 +47,7 @@ export const crashApi = {
 
     return data as {
       gameId: string;
-      state: 'waiting' | 'running' | 'crashed';
+      state: CrashGameState;
       roundFinished: boolean;
       multiplier: number;
       myBet?: {

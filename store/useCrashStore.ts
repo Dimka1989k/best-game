@@ -1,6 +1,8 @@
 import { create } from 'zustand';
+import { CrashGameState } from '@/types/crash.types';
+import { CrashBetStatus } from '@/types/crash.types';
 
-export type CrashState = 'waiting' | 'running' | 'crashed';
+export type CrashState = CrashGameState;
 
 interface CrashStore {
   gameId?: string;
@@ -9,7 +11,7 @@ interface CrashStore {
   multiplier: number;
   crashPoint?: number;
   amount: number;
-  status?: 'won' | 'lost';
+  status?: CrashBetStatus;
   winAmount?: number;
   setAmount(v: number): void;
   resetRound(): void;
@@ -25,13 +27,15 @@ interface CrashStore {
   crash(crashPoint: number): void;
   autoCashout?: number;
   reset(): void;
+  setGameState(state: CrashState): void;
 }
 
 export const useCrashStore = create<CrashStore>((set, get) => ({
-  state: 'waiting',
+  state: CrashGameState.Waiting,
   multiplier: 1,
   amount: 0,
   setAmount: (v) => set({ amount: v }),
+  setGameState: (state) => set({ state }),
   halfAmount: () => set({ amount: Math.max(0.1, get().amount / 2) }),
   doubleAmount: () => set({ amount: Math.min(10000, get().amount * 2) }),
   maxAmount: (balance) => set({ amount: Math.min(balance, 10000) }),
@@ -41,7 +45,7 @@ export const useCrashStore = create<CrashStore>((set, get) => ({
       betId,
       amount,
       autoCashout,
-      state: 'running',
+      state: CrashGameState.Running,
       multiplier: 1,
       status: undefined,
       winAmount: undefined,
@@ -53,25 +57,26 @@ export const useCrashStore = create<CrashStore>((set, get) => ({
 
   cashout: (multiplier, winAmount) =>
     set({
-      state: 'crashed',
-      status: 'won',
+      state: CrashGameState.Crashed,
+      status: CrashBetStatus.Won,
       multiplier,
       winAmount,
+      autoCashout: undefined,
     }),
 
   crash: (crashPoint) =>
     set((s) => {
-      if (s.status === 'won') return s;
+      if (s.status === CrashBetStatus.Won) return s;
       return {
-        state: 'crashed',
-        status: 'lost',
+        state: CrashGameState.Crashed,
+        status: CrashBetStatus.Lost,
         crashPoint,
       };
     }),
 
   resetRound: () =>
     set((s) => ({
-      state: 'waiting',
+      state: CrashGameState.Waiting,
       multiplier: 1,
       betId: undefined,
       status: undefined,
@@ -89,7 +94,7 @@ export const useCrashStore = create<CrashStore>((set, get) => ({
 
   reset: () =>
     set({
-      state: 'waiting',
+      state: CrashGameState.Waiting,
       multiplier: 1,
       amount: 0,
       betId: undefined,

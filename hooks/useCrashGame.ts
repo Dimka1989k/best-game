@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { crashApi } from '@/lib/api/crash/crash.api';
-import { connectCrashSocket } from '@/lib/api/crash/crash.socket';
+import { crashSocket } from '@/lib/api/crash/crash.socket';
 import { useCrashStore } from '@/store/useCrashStore';
 import { getCurrentUser } from '@/lib/api/users.api';
 import { useUserStore } from '@/store/useUserStore';
+import { CrashGameState } from '@/types/crash.types';
 
 export const useCrashGame = () => {
   const store = useCrashStore();
@@ -26,7 +27,7 @@ export const useCrashGame = () => {
     onSuccess: async (res, payload) => {
       store.placeBet(res.gameId, res.betId, payload.amount, payload.autoCashout);
 
-      connectCrashSocket(res.gameId);
+      crashSocket.connect(res.gameId);
       await syncUser();
     },
 
@@ -59,7 +60,7 @@ export const useCrashGame = () => {
 
   return {
     placeBet: (payload: { amount: number; autoCashout?: number }) => {
-      if (store.state !== 'waiting') return;
+      if (store.state !== CrashGameState.Waiting) return;
       betMutation.mutate(payload);
     },
 
