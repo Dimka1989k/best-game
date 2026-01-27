@@ -6,6 +6,7 @@
   --color-white: #ffffff;
   --color-red: #c62121;
   --color-green: #82c91e;
+  --color-green: #82c91e;
   --color-blue: #51a2ff;
   --color-gray: #adb5bd;
   --bg-form: #100f22;
@@ -19,9 +20,11 @@
   --active-link: #1f73d1;
   --gray: #adb5bd;
   --bg-black: #24243f;
+  --bg-overlay: #ffffff1a;
 }
 
 @theme inline {
+  --color-bg-overlay: var(--bg-overlay);
   --color-bg-black: var(--bg-black);
   --color-gray: var(--gray);
   --text-color-black: var(--color-black);
@@ -29,6 +32,7 @@
   --text-color-white: var(--color-white);
   --text-color-red: var(--color-red);
   --text-color-green: var(--color-green);
+  --color-color-green: var(--color-green);
   --text-color-blue: var(--color-blue);
   --text-color-gray: var(--color-gray);
   --color-bg-form: var(--bg-form);
@@ -81,6 +85,7 @@
   --text-inter-small--line-height: 140%;
   --text-inter-small--letter-spacing: 0em;
 
+  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-smm: 12px;
   --radius-md: 16px;
@@ -89,6 +94,10 @@
 }
 
 @layer utilities {
+  .radius-xs {
+    border-radius: var(--radius-xs);
+  }
+
   .radius-sm {
     border-radius: var(--radius-sm);
   }
@@ -252,6 +261,14 @@
     box-shadow: 0px 0px 16px 0px #ffffff40;
   }
 
+  .shadow-overlay {
+    box-shadow: 0px 0px 48px 0px #82c91e;
+  }
+
+  .shadow-overlay-red {
+    box-shadow: 0px 0px 48px 0px #c62121;
+  }
+
   .shadow-avatar {
     filter: drop-shadow(0px 0px 6px #ffcd71);
   }
@@ -269,6 +286,16 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    --moz-appearance: textfield;
   }
 }
 
@@ -296,15 +323,4 @@
     background: linear-gradient(0deg, #ff0047 0%, #ff417b 100%);
     border-radius: 100px;
   }
-}
-
-.dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }

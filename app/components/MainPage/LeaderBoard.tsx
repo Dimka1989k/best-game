@@ -43,51 +43,53 @@ export default function LeaderBoard() {
       />
       <p className="text-white text-satoshi-small text-center">Leaderboard</p>
       <p className="text-gray text-inter-main text-center mt-0.5 mb-6">Top players</p>
-      <div className="bg-bg-black radius-sm p-4 flex gap-4 mx-auto mb-4 max-xl:w-full w-65 shadow-message-chat">
-        <Image src={firstPlace} alt="1st place" />
-        <div className="flex gap-2 w-full justify-between">
-          <div className="flex flex-col text-start">
-            <p className="text-white text-inter-bold">{topPlayer.username}</p>
-            <p className="text-gray text-inter-small mt-1">{topPlayer.gamesPlayed} games</p>
-          </div>
-          <div className="flex flex-col text-right">
-            <div className="flex gap-0.5 items-center justify-end">
-              <Image src={dollar} alt="dollar" className="w-4 h-4" />
-              <p className="text-white text-inter-bold">{topPlayer.totalWagered.toFixed(0)}</p>
+      <div className="h-175 overflow-y-auto scrollbar-hide">
+        <div className="bg-bg-black radius-sm p-4 flex gap-4 mx-auto mb-4 max-xl:w-full w-65 shadow-message-chat">
+          <Image src={firstPlace} alt="1st place" />
+          <div className="flex gap-2 w-full justify-between">
+            <div className="flex flex-col text-start">
+              <p className="text-white text-inter-bold">{topPlayer.username}</p>
+              <p className="text-gray text-inter-small mt-1">{topPlayer.gamesPlayed} games</p>
             </div>
-            <p className="text-green text-inter-small mt-1">{topPlayer.winRate}% win</p>
+            <div className="flex flex-col text-right">
+              <div className="flex gap-0.5 items-center justify-end">
+                <Image src={dollar} alt="dollar" className="w-4 h-4" />
+                <p className="text-white text-inter-bold">{topPlayer.totalWagered.toFixed(0)}</p>
+              </div>
+              <p className="text-green text-inter-small mt-1">{topPlayer.winRate}% win</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-4">
-        {otherPlayers.map((player: LeaderboardPlayer) => {
-          const placeIcon = getPlaceIcon(player.rank);
-          return (
-            <div
-              key={player.username}
-              className="bg-bg-black radius-sm p-4 flex justify-between items-center shadow-message-chat"
-            >
-              <div className="flex items-center gap-4">
-                {placeIcon ? (
-                  <Image src={placeIcon} alt={`${player.rank} place`} />
-                ) : (
-                  <span className="text-white text-inter-h2">{player.rank}</span>
-                )}
-                <div>
-                  <p className="text-white text-inter-bold">{player.username}</p>
-                  <p className="text-gray text-inter-small">{player.gamesPlayed} games</p>
+        <div className="flex flex-col gap-4">
+          {otherPlayers.map((player: LeaderboardPlayer) => {
+            const placeIcon = getPlaceIcon(player.rank);
+            return (
+              <div
+                key={player.username}
+                className="bg-bg-black radius-sm p-4 flex justify-between items-center shadow-message-chat"
+              >
+                <div className="flex items-center gap-4">
+                  {placeIcon ? (
+                    <Image src={placeIcon} alt={`${player.rank} place`} />
+                  ) : (
+                    <span className="text-white text-inter-h2">{player.rank}</span>
+                  )}
+                  <div>
+                    <p className="text-white text-inter-bold">{player.username}</p>
+                    <p className="text-gray text-inter-small">{player.gamesPlayed} games</p>
+                  </div>
+                </div>
+                <div className="flex flex-col text-right">
+                  <div className="flex gap-0.5 items-center justify-end">
+                    <Image src={dollar} alt="dollar" className="w-4 h-4" />
+                    <p className="text-white text-inter-bold">{player.totalWagered.toFixed(0)}</p>
+                  </div>
+                  <p className="text-green text-inter-small mt-1">{player.winRate}% win</p>
                 </div>
               </div>
-              <div className="flex flex-col text-right">
-                <div className="flex gap-0.5 items-center justify-end">
-                  <Image src={dollar} alt="dollar" className="w-4 h-4" />
-                  <p className="text-white text-inter-bold">{player.totalWagered.toFixed(0)}</p>
-                </div>
-                <p className="text-green text-inter-small mt-1">{player.winRate}% win</p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import iconLogOut from '@/assets/login-icon.svg';
 import burgerIcon from '@/assets/burger.svg';
 import Link from 'next/link';
+import { useUserStore } from '@/store/useUserStore';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
@@ -18,6 +19,7 @@ import { useLogout } from '@/hooks/auth/useLogout';
 export default function Header() {
   const { toggleSidebar } = useSidebar();
   const logout = useLogout();
+  const balance = useUserStore((s) => s.balance);
 
   return (
     <header className="sticky px-12 max-md:px-4 pt-6 pb-6 max-md:pt-4 bg-header flex justify-between items-center">
@@ -35,7 +37,7 @@ export default function Header() {
         <div className="flex items-center justify-center max-md:justify-between max-md:gap-0 gap-4">
           <div className="flex items-center justify-center gap-2 border border-gray radius-pill px-6 py-3">
             <Image src={Dollar} alt="Dollar" />
-            <p className="text-inter-main text-white">10.000</p>
+            <p className="text-inter-main text-white">{balance.toFixed(2)}</p>
           </div>
           <Button className="max-md:hidden flex items-center">
             <div className="rounded-full p-0.5 bg-[linear-gradient(180deg,#FFCD71_0%,#E59603_100%)]">
