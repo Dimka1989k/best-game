@@ -57,7 +57,7 @@ export default function Header() {
           </Button>
           <Button
             onClick={logout}
-            className="max-md:hidden transition-shadow duration-200 ease-in-out text-inter-h2 text-white button-yellow w-full max-w-29.5 h-10.5 border-none cursor-pointer"
+            className="radius-md max-md:hidden transition-shadow duration-200 ease-in-out text-inter-h2 text-white button-yellow w-full max-w-29.5 h-10.5 border-none cursor-pointer"
             variant="default"
           >
             <span className="mx-auto ">Log out</span>
