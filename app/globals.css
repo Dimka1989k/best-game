@@ -21,9 +21,13 @@
   --gray: #adb5bd;
   --bg-black: #24243f;
   --bg-overlay: #ffffff1a;
+  --bg-case: #423e69;
+  --bg-button: #423e69;
 }
 
 @theme inline {
+  --color-bg-button: var(--bg-button);
+  --color-bg-case: var(--bg-case);
   --color-bg-overlay: var(--bg-overlay);
   --color-bg-black: var(--bg-black);
   --color-gray: var(--gray);
@@ -87,6 +91,7 @@
 
   --radius-xs: 4px;
   --radius-sm: 8px;
+  --radius-ms: 10px;
   --radius-smm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -94,6 +99,32 @@
 }
 
 @layer utilities {
+  .shadow-case {
+    box-shadow: 0px 4px 10px 0px #1515153d;
+  }
+
+  .shadow-case:hover {
+    box-shadow: 0px 0px 16px 0px #ffffff80;
+  }
+
+  .shadow-case:active {
+    box-shadow: 0px 0px 16px 0px #ffffff80;
+  }
+
+  .button-case {
+    background: #423e6980;
+    color: #adb5bd;
+  }
+
+  .button-case-active {
+    background: #7f76cd;
+    color: #000000;
+  }
+
+  .radius-ms {
+    border-radius: var(--radius-ms);
+  }
+
   .radius-xs {
     border-radius: var(--radius-xs);
   }

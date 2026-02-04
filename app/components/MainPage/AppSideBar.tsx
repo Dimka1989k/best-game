@@ -36,7 +36,7 @@ export function AppSidebar() {
             <div className="mt-auto flex justify-center">
               <Button
                 onClick={logout}
-                className="transition-shadow duration-200 ease-in-out text-inter-h2 text-white button-yellow w-full max-w-47 h-10.5 border-none cursor-pointer"
+                className="radius-md transition-shadow duration-200 ease-in-out text-inter-h2 text-white button-yellow w-full max-w-47 h-10.5 border-none cursor-pointer"
                 variant="default"
               >
                 <span className="">Log out</span>

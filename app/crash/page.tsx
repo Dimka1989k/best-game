@@ -29,7 +29,7 @@ export default function Crash() {
 
   return (
     <div className="flex flex-col px-12 max-md:px-4 pt-5 max-md:pt-0">
-      <ButtonLink />
+      <ButtonLink href="/" />
       <div className="flex justify-center gap-6 w-full max-lg:flex-wrap">
         <CrashStage state={state} multiplier={multiplier} />
         <CrashBetForm state={state} />
