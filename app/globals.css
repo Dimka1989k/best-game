@@ -328,6 +328,32 @@
   input[type='number'] {
     --moz-appearance: textfield;
   }
+
+  @keyframes ripple {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 205, 113, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 0 18px rgba(255, 205, 113, 0);
+    }
+  }
+
+  @keyframes ripple-red {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 0, 71, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 0 18px rgba(255, 0, 71, 0);
+    }
+  }
+
+  .animate-ripple-gold {
+    animation: ripple 500ms ease-out;
+  }
+
+  .animate-ripple-red {
+    animation: ripple-red 500ms ease-out;
+  }
 }
 
 @layer base {
