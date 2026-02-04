@@ -14,6 +14,7 @@ import { useCaseStore } from '@/store/case.store';
 
 import { CASE_NAME_TO_CATEGORY } from './case-category.map';
 import { normalizeCaseItemName } from './normalizeCaseItemName';
+import { useSellCaseItem } from '@/hooks/cases/useSellCaseItem';
 
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
@@ -29,7 +30,10 @@ export default function CaseResultCard({ item }: Props) {
   const router = useRouter();
   const { slug } = useParams<{ slug: string }>();
 
-  const handleSell = () => {
+  const sellItem = useSellCaseItem();
+
+  const handleSell = async () => {
+    await sellItem.mutateAsync(item);
     resetCase();
     router.push('/case');
   };
@@ -72,7 +76,7 @@ export default function CaseResultCard({ item }: Props) {
         <Button
           onClick={handleSell}
           variant="flat"
-          className="radius-pill w-full max-w-54 h-12  max-md:max-w-40 button-red text-white! text-inter-bold"
+          className="cursor-pointer radius-pill w-full max-w-54 h-12  max-md:max-w-40 button-red text-white! text-inter-bold"
         >
           Sell for {item.value}$
         </Button>

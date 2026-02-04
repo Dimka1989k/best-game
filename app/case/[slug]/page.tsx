@@ -29,7 +29,7 @@ export default function CasePage() {
   const { setResult, startSpin, setSelectedCaseName, withoutAnimation, setWithoutAnimation } =
     useCaseStore();
 
-  const openCase = useOpenCase(data?.id ?? '');
+  const openCase = useOpenCase(data?.id ?? '', data?.price ?? 0);
 
   if (!data) return null;
 

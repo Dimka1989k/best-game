@@ -1,11 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { casesApi } from '@/lib/api/cases/cases.api';
 import { useCaseStore } from '@/store/case.store';
 import { useUserStore } from '@/store/useUserStore';
 
-export function useOpenCase(caseId: string) {
+export function useOpenCase(caseId: string, casePrice: number) {
+  const queryClient = useQueryClient();
   const { setResult, setLoading, reset } = useCaseStore();
-  const setBalance = useUserStore((s) => s.setBalance);
+  const changeBalance = useUserStore((s) => s.changeBalance);
 
   return useMutation({
     mutationFn: () => casesApi.open(caseId),
@@ -13,15 +14,17 @@ export function useOpenCase(caseId: string) {
     onMutate: () => {
       reset();
       setLoading(true);
+      changeBalance(-casePrice);
     },
 
     onSuccess: (res) => {
       setResult(res);
-      setBalance(res.newBalance);
     },
 
     onSettled: () => {
       setLoading(false);
+      queryClient.invalidateQueries({ queryKey: ['leaderboard'] });
+      queryClient.invalidateQueries({ queryKey: ['cases-history'] });
     },
   });
 }
