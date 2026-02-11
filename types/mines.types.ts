@@ -32,6 +32,7 @@ export type StartMinesResponse = {
 };
 
 export type RevealMinesResponse = {
+  minePositions: never[];
   position: number;
   isMine: boolean;
   currentMultiplier: number;

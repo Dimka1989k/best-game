@@ -10,85 +10,57 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-const getAuthHeaders = (): HeadersInit => {
-  const token = useAuthStore.getState().session?.accessToken;
-  if (!token) throw new Error('No access token');
+export class MinesService {
+  private getAuthHeaders(): HeadersInit {
+    const token = useAuthStore.getState().session?.accessToken;
+    if (!token) {
+      throw new Error('No access token');
+    }
 
-  return {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
-};
+    return {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+  }
 
-export const minesApi = {
-  start: async (payload: StartMinesPayload) => {
-    const res = await fetch(`${API_URL}/mines/start`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(payload),
+  async start(payload: StartMinesPayload): Promise<StartMinesResponse> {
+    return this.request('/mines/start', payload);
+  }
+
+  async reveal(gameId: string, position: number): Promise<RevealMinesResponse> {
+    return this.request('/mines/reveal', { gameId, position });
+  }
+
+  async cashout(gameId: string): Promise<CashoutMinesResponse> {
+    return this.request('/mines/cashout', { gameId });
+  }
+
+  async active(): Promise<ActiveMinesResponse> {
+    return this.request('/mines/active', undefined, 'GET');
+  }
+
+  async history(limit = 10, offset = 0): Promise<MinesHistoryResponse> {
+    return this.request(`/mines/history?limit=${limit}&offset=${offset}`, undefined, 'GET');
+  }
+
+  private async request<T>(
+    path: string,
+    body?: unknown,
+    method: 'POST' | 'GET' = 'POST',
+  ): Promise<T> {
+    const res = await fetch(`${API_URL}${path}`, {
+      method,
+      headers: this.getAuthHeaders(),
+      body: body ? JSON.stringify(body) : undefined,
     });
 
     if (!res.ok) {
       const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || 'Failed to start mines game');
+      throw new Error(error.message || 'Mines API error');
     }
 
-    return res.json() as Promise<StartMinesResponse>;
-  },
+    return res.json() as Promise<T>;
+  }
+}
 
-  reveal: async (gameId: string, position: number) => {
-    const res = await fetch(`${API_URL}/mines/reveal`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ gameId, position }),
-    });
-
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || 'Failed to reveal tile');
-    }
-
-    return res.json() as Promise<RevealMinesResponse>;
-  },
-
-  cashout: async (gameId: string) => {
-    const res = await fetch(`${API_URL}/mines/cashout`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ gameId }),
-    });
-
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || 'Failed to cashout');
-    }
-
-    return res.json() as Promise<CashoutMinesResponse>;
-  },
-
-  active: async () => {
-    const res = await fetch(`${API_URL}/mines/active`, {
-      headers: getAuthHeaders(),
-    });
-
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || 'Failed to get active game');
-    }
-
-    return res.json() as Promise<ActiveMinesResponse>;
-  },
-
-  history: async (limit = 10, offset = 0) => {
-    const res = await fetch(`${API_URL}/mines/history?limit=${limit}&offset=${offset}`, {
-      headers: getAuthHeaders(),
-    });
-
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || 'Failed to load mines history');
-    }
-
-    return res.json() as Promise<MinesHistoryResponse>;
-  },
-};
+export const minesApi = new MinesService();

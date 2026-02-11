@@ -1,17 +1,21 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { minesApi } from '@/lib/api/mines/mines.api';
 import { useMinesStore } from '@/store/useMinesStore';
-import type { StartMinesPayload } from '@/types/mines.types';
 import { useUserStore } from '@/store/useUserStore';
-import { useQueryClient } from '@tanstack/react-query';
-import { MinesStatus } from '@/types/mines.types';
+import { StartMinesPayload, MinesStatus, ActiveMinesResponse } from '@/types/mines.types';
+import type { MinesHistoryResponse } from '@/types/mines.types';
 
 export const useStartMinesGame = () => {
-  const startGame = useMinesStore((s) => s.startGame);
+  const { startGame, gameId, status } = useMinesStore();
   const changeBalance = useUserStore((s) => s.changeBalance);
 
   return useMutation({
-    mutationFn: (payload: StartMinesPayload) => minesApi.start(payload),
+    mutationFn: async (payload: StartMinesPayload) => {
+      if (gameId && status === 'playing') {
+        throw new Error('Game already active');
+      }
+      return minesApi.start(payload);
+    },
 
     onSuccess: (res, vars) => {
       startGame({
@@ -38,8 +42,7 @@ export const useRevealMinesTile = () => {
 
   return useMutation({
     mutationFn: ({ gameId, position }: RevealTileVars) => minesApi.reveal(gameId, position),
-
-    onSuccess: async (res) => {
+    onSuccess: (res) => {
       revealTile({
         isMine: res.isMine,
         multiplier: res.currentMultiplier,
@@ -48,18 +51,10 @@ export const useRevealMinesTile = () => {
       });
 
       if (res.isMine) {
-        const history = await minesApi.history(1, 0);
-        const lastGame = history.games[0];
-
-        if (!lastGame?.minePositions) {
-          console.error('minePositions missing in history response');
-          return;
-        }
-
         finishGame({
           status: MinesStatus.Lost,
-          minePositions: lastGame.minePositions,
-          multiplier: lastGame.cashoutMultiplier ?? 1,
+          minePositions: res.minePositions ?? [],
+          multiplier: res.currentMultiplier,
           winAmount: 0,
         });
         queryClient.invalidateQueries({ queryKey: ['mines', 'history'] });
@@ -71,6 +66,7 @@ export const useRevealMinesTile = () => {
 
 export const useCashoutMines = () => {
   const finishGame = useMinesStore((s) => s.finishGame);
+  const reset = useMinesStore((s) => s.reset);
   const changeBalance = useUserStore((s) => s.changeBalance);
   const queryClient = useQueryClient();
 
@@ -87,20 +83,27 @@ export const useCashoutMines = () => {
       changeBalance(res.winAmount);
       queryClient.invalidateQueries({ queryKey: ['mines', 'history'] });
       queryClient.invalidateQueries({ queryKey: ['leaderboard'] });
+      reset();
     },
   });
 };
 
-export const useActiveMinesGame = () =>
-  useQuery({
+export const useActiveMinesGame = () => {
+  const restoreGame = useMinesStore((s) => s.restoreGame);
+
+  const query = useQuery<ActiveMinesResponse>({
     queryKey: ['mines', 'active'],
-    queryFn: minesApi.active,
+    queryFn: () => minesApi.active(),
     staleTime: 0,
   });
+  if (query.data?.game) {
+    restoreGame(query.data.game);
+  }
+  return query;
+};
 
 export const useMinesHistory = (limit = 10, offset = 0) =>
-  useQuery({
+  useQuery<MinesHistoryResponse>({
     queryKey: ['mines', 'history', limit, offset],
     queryFn: () => minesApi.history(limit, offset),
-    placeholderData: (previousData) => previousData,
   });
