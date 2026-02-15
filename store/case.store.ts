@@ -62,6 +62,7 @@ export const useCaseStore = create<CaseUIState>()(
           phase: CasePhase.IDLE,
           result: undefined,
           spinItems: undefined,
+          withoutAnimation: false,
         }),
     }),
     {
@@ -71,7 +72,6 @@ export const useCaseStore = create<CaseUIState>()(
         result: state.result,
         spinItems: state.spinItems,
         selectedCaseName: state.selectedCaseName,
-        withoutAnimation: state.withoutAnimation,
       }),
     },
   ),
