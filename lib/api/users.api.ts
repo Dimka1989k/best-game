@@ -7,6 +7,7 @@ export type CurrentUserResponse = {
   totalWagered: number;
   gamesPlayed: number;
   totalWon: number;
+  avatarURL: string;
 };
 
 export function getCurrentUser() {

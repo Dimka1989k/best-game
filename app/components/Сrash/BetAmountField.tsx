@@ -10,9 +10,11 @@ import { FormControl, FormItem, FormLabel } from '@/components/ui/form';
 
 import dollarIcon from '@/assets/icon-dollar.svg';
 import { useCrashStore } from '@/store/useCrashStore';
+import { useTranslation } from 'react-i18next';
 
 export const BetAmountField = memo(function BetAmountField() {
   const { control, setValue } = useFormContext();
+  const { t } = useTranslation();
 
   const { field } = useController({
     name: 'amount',
@@ -33,7 +35,7 @@ export const BetAmountField = memo(function BetAmountField() {
 
   return (
     <FormItem className="text-left">
-      <FormLabel className="text-gray! text-inter-secondary">Bet Amount</FormLabel>
+      <FormLabel className="text-gray! text-inter-secondary">{t('bet.betAmount')}</FormLabel>
       <div className="relative">
         <Image src={dollarIcon} alt="dollarIcon" className="absolute top-2.5 left-2" />
         <FormControl>

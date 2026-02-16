@@ -14,6 +14,7 @@ import iconChat from '@/assets/chatIcon.svg';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import arrowUp from '@/assets/arrowUp.svg';
+import { useTranslation } from 'react-i18next';
 
 import {
   Drawer,
@@ -25,6 +26,7 @@ import {
 import Image from 'next/image';
 
 export default function DrawerChat() {
+  const { t } = useTranslation();
   const [text, setText] = useState('');
   const [liveMessages, setLiveMessages] = useState<ChatMessage[]>([]);
   const messagesRef = useRef<HTMLDivElement>(null);
@@ -32,16 +34,22 @@ export default function DrawerChat() {
   const { data } = useChatHistory('general');
 
   const messages = useMemo(() => {
+    const normalize = (m: ChatMessage): ChatMessage => ({
+      ...m,
+      avatarURL:
+        m.avatarURL ?? (m.userId && typeof m.userId === 'object' ? m.userId.avatarURL : undefined),
+    });
+
     const map = new Map<string, ChatMessage>();
     (data?.messages ?? []).forEach((m: ChatMessage) => {
       if (m.username !== 'Chat Bot') {
-        map.set(m._id, m);
+        map.set(m._id, normalize(m));
       }
     });
 
     liveMessages.forEach((m: ChatMessage) => {
       if (m.username !== 'Chat Bot') {
-        map.set(m._id, m);
+        map.set(m._id, normalize(m));
       }
     });
 
@@ -97,11 +105,11 @@ export default function DrawerChat() {
               <div className="bg-gray w-full h-px mb-2 mx-auto"></div>
             </div>
             <div className="flex justify-between items-center pl-8 pr-8">
-              <p className="text-inter-secondary text-white">250 online</p>
+              <p className="text-inter-secondary text-white">250 {t('common.online')}</p>
               <p className="text-inter-secondary bg-[linear-gradient(180deg,#FFCD71_0%,#E59603_100%)] bg-clip-text text-transparent ">
                 48 friends
               </p>
-              <p className="text-inter-secondary text-white">54 playing</p>
+              <p className="text-inter-secondary text-white">54 {t('common.playing')}</p>
             </div>
             <div
               ref={messagesRef}
@@ -116,7 +124,7 @@ export default function DrawerChat() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 onKeyDown={handleInputKeyDown}
-                placeholder="Write a message..."
+                placeholder={t('common.writeMessage')}
                 className="backdrop-blur-lg h-10 w-full pl-4 bg-color-chat border-none! radius-pill text-white placeholder:text-white"
               />
               <Button

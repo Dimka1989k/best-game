@@ -10,16 +10,18 @@ import {
 } from '@/components/ui/table';
 import { useMinesHistory } from '@/hooks/mines/useMinesGame';
 import { MinesStatus } from '@/types/mines.types';
+import { useTranslation } from 'react-i18next';
 
 export default function MinesHistoryTable() {
   const { data, isLoading } = useMinesHistory(10, 0);
+  const { t } = useTranslation();
 
   if (isLoading) {
-    return <div className="text-gray px-8 py-4">Loading history...</div>;
+    return <div className="text-gray px-8 py-4">{t('history.loadingHistory')}</div>;
   }
 
   if (!data || data.games.length === 0) {
-    return <div className="text-gray px-8 py-4">No games yet</div>;
+    return <div className="text-gray px-8 py-4">{t('games.plinko.noGames')}</div>;
   }
 
   const getDisplayStatus = (status: string) => {
@@ -36,11 +38,11 @@ export default function MinesHistoryTable() {
       <Table className="w-332.5 2xl:w-full mx-auto">
         <TableHeader className="bg-bg-tabel">
           <TableRow className="text-gray text-inter-bold!">
-            <TableHead className="w-67.5 pl-8">Time</TableHead>
-            <TableHead className="w-64 pl-8">Bet</TableHead>
-            <TableHead className="w-81.5">Multiplier</TableHead>
-            <TableHead className="w-88.5">Win Amount</TableHead>
-            <TableHead className="2xl:w-50">Status</TableHead>
+            <TableHead className="w-67.5 pl-8">{t('history.time')}</TableHead>
+            <TableHead className="w-64 pl-8">{t('history.bet')}</TableHead>
+            <TableHead className="w-81.5">{t('history.multiplier')}</TableHead>
+            <TableHead className="w-88.5">{t('history.winAmount')}</TableHead>
+            <TableHead className="2xl:w-50">{t('history.status')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="text-inter-main">

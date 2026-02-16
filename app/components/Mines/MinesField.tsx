@@ -3,18 +3,31 @@
 import Image from 'next/image';
 import bombImage from '@/assets/bomb.svg';
 import coinImage from '@/assets/coin.svg';
+import { useEffect, useRef } from 'react';
 
 import { useMinesStore } from '@/store/useMinesStore';
 import { useRevealMinesTile } from '@/hooks/mines/useMinesGame';
 import clsx from 'clsx';
 import { Button } from '@/components/ui/button';
 import { MinesStatus } from '@/types/mines.types';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 export default function MinesField() {
   const { gridSize, totalTiles, revealedPositions, minePositions, gameId, status, lastHitMine } =
     useMinesStore();
 
   const revealMutation = useRevealMinesTile();
+  const { playMusic } = useMusic();
+  const prevHitRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (lastHitMine !== null && lastHitMine !== undefined && lastHitMine !== prevHitRef.current) {
+      playMusic(Music.losemines);
+    }
+
+    prevHitRef.current = lastHitMine;
+  }, [lastHitMine, playMusic]);
 
   const handleClick = (position: number) => {
     if (status !== MinesStatus.Playing) return;

@@ -26,8 +26,7 @@ export function getCaseItemImage(item: CaseItemImageSource): string {
   const usedImages = new Set(rarityCache.values());
   const available = pool.filter((img) => !usedImages.has(img));
 
-  const image = available.length > 0 ? available[0] : pool[rarityCache.size % pool.length]; // fallback
-
+  const image = available.length > 0 ? available[0] : pool[rarityCache.size % pool.length];
   rarityCache.set(item.id, image);
   return image;
 }

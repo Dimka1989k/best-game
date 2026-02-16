@@ -18,6 +18,11 @@ import { useSellCaseItem } from '@/hooks/cases/useSellCaseItem';
 
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+
+import { useEffect } from 'react';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 type Props = {
   item: OpenedCaseItem;
@@ -25,6 +30,12 @@ type Props = {
 
 export default function CaseResultCard({ item }: Props) {
   const { selectedCaseName } = useCaseStore();
+  const { t } = useTranslation();
+  const { playMusic, stopMusic } = useMusic();
+
+  useEffect(() => {
+    stopMusic(Music.carousel);
+  }, [stopMusic]);
 
   const resetCase = useCaseStore((s) => s.reset);
   const router = useRouter();
@@ -33,6 +44,7 @@ export default function CaseResultCard({ item }: Props) {
   const sellItem = useSellCaseItem();
 
   const handleSell = async () => {
+    playMusic(Music.buttonBet);
     await sellItem.mutateAsync(item);
     resetCase();
     router.push('/case');
@@ -78,13 +90,13 @@ export default function CaseResultCard({ item }: Props) {
           variant="flat"
           className="cursor-pointer radius-pill w-full max-w-54 h-12  max-md:max-w-40 button-red text-white! text-inter-bold"
         >
-          Sell for {item.value}$
+          {t('games.cases.sellFor')} {item.value}$
         </Button>
         <Link
           href={`/case/${slug}`}
           className="flex items-center justify-center button-yellow radius-md w-full max-w-54 max-md:max-w-40 h-12 text-white text-inter-bold"
         >
-          Try again
+          {t('games.cases.tryAgain')}
         </Link>
       </div>
 
@@ -92,7 +104,7 @@ export default function CaseResultCard({ item }: Props) {
         <div className="flex items-center gap-2 bg-bg-button radius-sm px-4 h-9">
           <Image src={iconAttention} alt="iconAttention" />
           <p className="text-gray text-inter-secondary max-md:text-xs!">
-            The item will be displayed in your personal account.
+            {t('games.cases.itemDisplay')}
           </p>
         </div>
       </div>

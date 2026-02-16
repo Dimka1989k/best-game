@@ -10,6 +10,7 @@ import BetAmountMinesField from './BetAmountMinesField';
 import MinesAmountField from './MinesAmountField';
 import MinesBetActions from './MinesBetActions';
 import GridSizeMines from './GridSizeMines';
+import { useTranslation } from 'react-i18next';
 
 export type FormValues = {
   amount: string;
@@ -19,6 +20,7 @@ export type FormValues = {
 export default function MinesBetForm() {
   const betAmount = useMinesStore((s) => s.betAmount);
   const gridSize = useMinesStore((s) => s.gridSize);
+  const { t } = useTranslation();
 
   const methods = useForm<FormValues>({
     mode: 'onChange',
@@ -58,11 +60,13 @@ export default function MinesBetForm() {
         className="bg-cards-bg radius-md py-6 px-8 w-108 max-lg:w-full text-center h-full"
       >
         <p className="text-white text-satoshi text-[clamp(24px,2vw,32px)]! mb-8">
-          Mines Configuration
+          {t('games.mines.configuration')}
         </p>
         <BetAmountMinesField />
         <MinesAmountField />
-        <p className="text-left text-white text-manrope font-medium!">Grid Size</p>
+        <p className="text-left text-white text-manrope font-medium!">
+          {t('games.mines.gridSize')}
+        </p>
         <GridSizeMines />
         <MinesBetActions />
         <PotentialMinesWin />

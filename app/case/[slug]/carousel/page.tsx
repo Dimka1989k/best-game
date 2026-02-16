@@ -8,9 +8,20 @@ import { Button } from '@/components/ui/button';
 import bag from '@/assets/bigBag.svg';
 import Image from 'next/image';
 import { CasePhase } from '@/types/cases.types';
+import { useTranslation } from 'react-i18next';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 export default function OpenCase() {
   const { phase, result, finishSpin } = useCaseStore();
+  const { t } = useTranslation();
+  const { playMusic, stopMusic } = useMusic();
+
+  const handleStopCarousel = () => {
+    playMusic(Music.buttonBet);
+    stopMusic(Music.carousel);
+    finishSpin();
+  };
 
   return (
     <div className="relative flex flex-col justify-center w-full h-full px-12 max-md:px-4 pt-6">
@@ -20,10 +31,10 @@ export default function OpenCase() {
       {phase === CasePhase.SPINNING && (
         <div className="w-full flex flex-col justify-center items-center mt-4">
           <Button
-            onClick={finishSpin}
+            onClick={handleStopCarousel}
             className="cursor-pointer radius-ms border border-gray w-37.5 h-10 text-white text-inter-bold!"
           >
-            skip animation
+            {t('games.cases.skipAnimation')}
           </Button>
           <Image
             src={bag}

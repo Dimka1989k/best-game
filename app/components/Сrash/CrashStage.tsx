@@ -7,6 +7,7 @@ import { CrashResultOverlay } from './CrashResultOverlay';
 import { useCrashStore } from '@/store/useCrashStore';
 import { memo } from 'react';
 import { CrashGameState } from '@/types/crash.types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   state: CrashGameState;
@@ -15,12 +16,11 @@ type Props = {
 
 export const CrashStage = memo(function CrashStage({ state, multiplier }: Props) {
   const status = useCrashStore((s) => s.status);
+  const { t } = useTranslation();
 
   return (
     <div
-      className="relative flex flex-col justify-center items-center radius-md text-center
-        w-full max-w-222 max-lg:max-w-231.5 h-127.5 max-sm:h-95.5 bg-cards-bg
-      "
+      className="relative flex flex-col justify-center items-center radius-md text-center w-full max-w-222 max-lg:max-w-231.5 h-127.5 max-sm:h-95.5 bg-cards-bg"
       style={{
         backgroundImage: `url(${bgSpace.src})`,
         backgroundSize: 'cover',
@@ -37,7 +37,7 @@ export const CrashStage = memo(function CrashStage({ state, multiplier }: Props)
 
       {state === CrashGameState.Waiting && (
         <p className="text-gray text-inter-bold text-[clamp(16px,3vw,32px)]!">
-          Waiting for bets...
+          {t('games.crash.waiting')}
         </p>
       )}
     </div>

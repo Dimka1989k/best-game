@@ -16,6 +16,7 @@ import { normalizeCaseItemName } from '@/app/components/Сase/normalizeCaseItemN
 import type { CaseItemRarity } from '@/types/cases.types';
 import { RARITY_GRADIENT } from './rarity.config';
 import { CASE_TITLE_MAP } from '@/app/components/Сase/caseTitles.config';
+import { useTranslation } from 'react-i18next';
 
 function formatDate(date: string) {
   return new Date(date).toLocaleString();
@@ -23,6 +24,7 @@ function formatDate(date: string) {
 
 export default function CaseHistory() {
   const { data, isLoading, isError } = useCaseHistory();
+  const { t } = useTranslation();
 
   const gradientTextStyle = (gradient: string) => ({
     background: gradient,
@@ -32,15 +34,15 @@ export default function CaseHistory() {
   });
 
   if (isLoading) {
-    return <p className="text-gray px-4">Loading history…</p>;
+    return <p className="text-gray px-4">{t('history.loadingHistory')}</p>;
   }
 
   if (isError || !data) {
-    return <p className="text-red px-4">Failed to load history</p>;
+    return <p className="text-red px-4">{t('history.failedHistory')}</p>;
   }
 
   if (data.openings.length === 0) {
-    return <p className="text-gray px-4">No case openings yet</p>;
+    return <p className="text-gray px-4">{t('history.noCase')}</p>;
   }
 
   return (
@@ -48,12 +50,12 @@ export default function CaseHistory() {
       <Table className="w-332.5 2xl:w-full mx-auto">
         <TableHeader className="bg-bg-tabel">
           <TableRow className="text-gray text-inter-bold!">
-            <TableHead className="w-61.5 pl-8 pr-0">Time</TableHead>
-            <TableHead className="w-61.5">Case</TableHead>
-            <TableHead className="w-60.5">Item</TableHead>
-            <TableHead className="w-63">Rarity</TableHead>
-            <TableHead className="w-62.5">Value</TableHead>
-            <TableHead className="w-18.5">Profit</TableHead>
+            <TableHead className="w-61.5 pl-8 pr-0">{t('history.time')}</TableHead>
+            <TableHead className="w-61.5">{t('history.case')}</TableHead>
+            <TableHead className="w-60.5">{t('history.item')}</TableHead>
+            <TableHead className="w-63">{t('history.rarity')}</TableHead>
+            <TableHead className="w-62.5">{t('history.value')}</TableHead>
+            <TableHead className="w-18.5">{t('history.profit')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="text-inter-main">

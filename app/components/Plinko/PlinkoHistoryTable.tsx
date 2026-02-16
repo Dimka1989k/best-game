@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/table';
 import { usePlinkoHistory } from '@/hooks/plinko/usePlinkoHistory';
 import { PlinkoStatus } from '@/types/plinko.types';
+import { useTranslation } from 'react-i18next';
 
 function formatDateTime(date: string) {
   const d = new Date(date);
@@ -29,13 +30,14 @@ function formatDateTime(date: string) {
 
 export default function PlinkoHistoryTable() {
   const { data, isLoading } = usePlinkoHistory();
+  const { t } = useTranslation();
 
   if (isLoading) {
-    return <p className="text-gray px-4">Loading history…</p>;
+    return <p className="text-gray px-4">{t('history.loadingHistory')}</p>;
   }
 
   if (!data || data.length === 0) {
-    return <p className="text-gray px-4">No games yet</p>;
+    return <p className="text-gray px-4">{t('history.noGames')}</p>;
   }
 
   return (
@@ -43,15 +45,14 @@ export default function PlinkoHistoryTable() {
       <Table className="w-332.5 2xl:w-full mx-auto">
         <TableHeader className="bg-bg-tabel">
           <TableRow className="text-gray text-inter-bold!">
-            <TableHead className="w-61.5 pl-8">Time</TableHead>
-            <TableHead className="w-61.5">Bet</TableHead>
-            <TableHead className="w-60.5">Lines</TableHead>
-            <TableHead className="w-63">Risk</TableHead>
-            <TableHead className="w-62.5">Multiplier</TableHead>
-            <TableHead className="w-18.5">Win</TableHead>
+            <TableHead className="w-61.5 pl-8">{t('history.time')}</TableHead>
+            <TableHead className="w-61.5">{t('history.bet')}</TableHead>
+            <TableHead className="w-60.5">{t('history.lines')}</TableHead>
+            <TableHead className="w-63">{t('history.risk')}</TableHead>
+            <TableHead className="w-62.5">{t('history.multiplier')}</TableHead>
+            <TableHead className="w-18.5">{t('common.win')}</TableHead>
           </TableRow>
         </TableHeader>
-
         <TableBody className="text-inter-main">
           {data.map((row) => (
             <TableRow key={row.id}>

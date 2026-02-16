@@ -13,11 +13,13 @@ import { CrashBetForm } from '../components/Сrash/CrashBetForm';
 import { useCrashRoundFinalize } from '@/hooks/useCrashRoundFinalize';
 
 import ButtonLink from '../components/ButtonLink';
+import { useTranslation } from 'react-i18next';
 
 export default function Crash() {
   const state = useCrashStore((s) => s.state);
   const multiplier = useCrashStore((s) => s.multiplier);
   const { data: history, isLoading } = useGameHistory('crash');
+  const { t } = useTranslation();
 
   useCrashRoundFinalize();
 
@@ -36,7 +38,7 @@ export default function Crash() {
       </div>
       <div>
         <p className="2xl:text-center text-white text-satoshi text-[clamp(24px,2vw,32px)]! mb-4 mt-10 max-md:mt-6 max-md:text-2xl!">
-          Game history
+          {t('history.title')}
         </p>
         <div className="mb-5 border-b border-bg-tabel">
           <CrashHistoryTable history={history} isLoading={isLoading} />

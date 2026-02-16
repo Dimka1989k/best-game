@@ -26,6 +26,7 @@ export function useSyncUser() {
           totalWagered: user.totalWagered,
           gamesPlayed: user.gamesPlayed,
           totalWon: user.totalWon,
+          avatarURL: user.avatarURL,
         });
       })
       .catch(() => {

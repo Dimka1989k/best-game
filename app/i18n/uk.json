@@ -1,0 +1,165 @@
+{
+  "common": {
+    "loading": "Завантаження...",
+    "loadingLeaderboard": "Завантаження таблиці...",
+    "failedLeaderboard": "Не вдалося завантажити рейтингову таблицю",
+    "noLeaderboard": "NНемає даних таблиці лідерів",
+    "playing": "грає",
+    "online": "онлайн",
+    "friends": "друзів",
+    "writeMessage": "Введіть текст...",
+    "freePlay": "Безплатна гра",
+    "top": "Топ",
+    "popular": "Популярні",
+    "hot": "Гарячі",
+    "new": "Нові",
+    "won": "Виграно",
+    "lost": "Програно",
+    "win": "Виграш",
+    "loss": "Програш",
+    "totalGame": "Всього ігор",
+    "time": "Час",
+    "location": "Локація"
+  },
+
+  "auth": {
+    "blaze": "Казино Blaze",
+    "casino": "Казино",
+    "welcomeBack": "З поверненням!",
+    "invalidCredentials": "Невірний email або пароль",
+    "userNotFound": "Користувача не знайдено",
+    "tooManyAttempts": "Забагато спроб. Спробуйте пізніше",
+    "somethingWrong": "Щось пішло не так. Спробуйте ще раз",
+    "emailInvalid": "Некоректний email",
+    "emailRequired": "Email обов’язковий",
+    "usernameInvalid": "Некоректне ім’я користувача",
+    "userlogOut": "Ви вийшли з системи",
+
+    "passwordMustContain": "Пароль повинен містити",
+    "uppercase": "Щонайменше одну велику літеру (A–Z)",
+    "lowercase": "Щонайменше одну малу літеру (a–z)",
+    "number": "Щонайменше одну цифру (0–9)",
+    "special": "Щонайменше один спецсимвол (!@#$%^&*)",
+
+    "dontHaveAccount": "Немає акаунта? Зареєструйтесь",
+    "alreadyHaveAccount": "Вже маєте акаунт? Увійти",
+    "accountStored": "Ваші дані зберігаються локально у браузері",
+
+    "username": "Ім’я користувача",
+    "enterUsername": "Введіть ім’я",
+    "email": "Електронна поштова",
+    "enterEmail": "Введіть адресу електронної пошти",
+    "password": "Пароль",
+    "enterPassword": "Введіть пароль",
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "logout": "Вийти",
+    "signUp": "Зареєструватися"
+  },
+
+  "navigation": {
+    "inventory": "Інвентар",
+    "settings": "Налаштування",
+    "english": "Англійська",
+    "ukrainian": "Українська",
+    "leaderboard": "Таблиця лідерів",
+    "topPlayers": "Топ гравців",
+    "games": "ігор",
+    "theme": "Тема",
+    "dark": "Темна",
+    "light": "Світла",
+    "lang": "Мова",
+    "en": "АНГ",
+    "ua": "УКР",
+    "sound": "Звук",
+    "on": "Вкл",
+    "off": "Викл",
+    "win": "виграшів"
+  },
+
+  "bonus": {
+    "minuteBonus": "Хвилинний бонус",
+    "bonusAmount": "Сума бонусу",
+    "availableNow": "Доступно зараз!",
+    "baseAmount": "Базова сума",
+    "wagerBonus": "Вейджер бонусу",
+    "gamesBonus": "Бонус за ігри",
+    "nextClaim": "Наступне отримання",
+    "claimBonus": "Отримати бонус"
+  },
+
+  "games": {
+    "crash": {
+      "title": "Креш",
+      "description": "Спостерігайте за зростанням множника та заберіть виграш",
+      "configuration": "Налаштування Креш",
+      "currentMultiplier": "Поточний множник",
+      "potentialWin": "Можливий виграш",
+      "currentPayout": "Виплата",
+      "waiting": "Очікування ставки..."
+    },
+
+    "cases": {
+      "title": "Кейси",
+      "description": "Відкривайте кейси та отримуйте випадкові нагороди",
+      "content": "Вміст кейсу",
+      "open": "Відкрити кейс",
+      "withoutAnimation": "без анімації",
+      "skipAnimation": "Пропустити аніме",
+
+      "blackStandard": "Чорний Стандарт",
+      "blackPlus": "Чорний Плюс",
+      "blackPro": "Чорний Про",
+      "blackElite": "Чорний Еліт",
+      "sellFor": "Продати за",
+      "tryAgain": "Cпробувати знову",
+      "itemDisplay": "Елемент буде відображено"
+    },
+
+    "mines": {
+      "title": "Міни",
+      "description": "Уникайте мін і збільшуйте винагороду",
+      "configuration": "Налаштування Mines",
+      "currentMultiplier": "Поточний множник",
+      "winAmount": "Сума виграшу",
+      "mineAmount": "Кількість мін",
+      "gridSize": "Розмір сітки",
+      "noGames": "Поки що немає ігор"
+    },
+
+    "plinko": {
+      "title": "Плінко",
+      "description": "Киньте кульку, спостерігайте за відскоками та вигравайте призи",
+      "configuration": "Налаштування Plinko",
+      "risk": "Ризик",
+      "row": "Ряд"
+    }
+  },
+
+  "bet": {
+    "betAmount": "Сума ставки",
+    "autoCashout": "Автовивід (необов’язково)",
+    "example": "напр. 2.00",
+    "placeBet": "Зробити ставку",
+    "cashout": "Забрати"
+  },
+
+  "history": {
+    "title": "Історія ігор",
+    "time": "Час",
+    "case": "Кейс",
+    "item": "Предмет",
+    "rarity": "Рідкість",
+    "value": "Цінність",
+    "profit": "Прибуток",
+    "bet": "Ставка",
+    "multiplier": "Множник",
+    "winAmount": "Сума виграшу",
+    "status": "Статус",
+    "lines": "Лінії",
+    "risk": "Ризик",
+    "loadingHistory": "Завантаження історії…",
+    "failedHistory": "Не вдалося завантажити історію",
+    "noCase": "Поки що немає відкритих кейсів"
+  }
+}

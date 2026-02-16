@@ -4,6 +4,7 @@ import { useMinesStore } from '@/store/useMinesStore';
 import { useUserStore } from '@/store/useUserStore';
 import { StartMinesPayload, MinesStatus, ActiveMinesResponse } from '@/types/mines.types';
 import type { MinesHistoryResponse } from '@/types/mines.types';
+import { useEffect } from 'react';
 
 export const useStartMinesGame = () => {
   const { startGame, gameId, status } = useMinesStore();
@@ -90,15 +91,20 @@ export const useCashoutMines = () => {
 
 export const useActiveMinesGame = () => {
   const restoreGame = useMinesStore((s) => s.restoreGame);
+  const gameId = useMinesStore((s) => s.gameId);
 
   const query = useQuery<ActiveMinesResponse>({
     queryKey: ['mines', 'active'],
     queryFn: () => minesApi.active(),
     staleTime: 0,
   });
-  if (query.data?.game) {
-    restoreGame(query.data.game);
-  }
+
+  useEffect(() => {
+    if (query.data?.game && gameId !== query.data.game._id) {
+      restoreGame(query.data.game);
+    }
+  }, [query.data, gameId, restoreGame]);
+
   return query;
 };
 

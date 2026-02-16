@@ -1,10 +1,16 @@
+export interface ChatUser {
+  _id: string;
+  username: string;
+  avatarURL?: string;
+}
+
 export interface ChatMessage {
   _id: string;
   roomId: string;
-  username: string;
   text: string;
-  userId: string;
+  username: string;
   createdAt: string;
+  updatedAt?: string;
   avatarURL?: string;
-  clientMessageId?: string;
+  userId: string | ChatUser;
 }

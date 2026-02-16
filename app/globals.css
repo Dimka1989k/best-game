@@ -2,7 +2,8 @@
 @import 'tw-animate-css';
 
 :root {
-  --color-black: #000000;
+  --btn: #ffffff;
+  --color-blacked: #000000;
   --color-white: #ffffff;
   --color-red: #c62121;
   --color-green: #82c91e;
@@ -23,15 +24,48 @@
   --bg-overlay: #ffffff1a;
   --bg-case: #423e69;
   --bg-button: #423e69;
+  --bg-main-gradient: linear-gradient(180deg, #0f0c29 0%, #312c5f 50%, #24243e 100%);
+  --bg-header-gradient: linear-gradient(180deg, #0f0c29 0%, #312c5f 50%, #24243e 100%);
+}
+
+.light {
+  --color-blacked: #ffffff;
+  --color-white: #000000;
+  --color-red: #c62121;
+  --color-green: #4caf50;
+  --color-blue: #1f73d1;
+  --color-gray: #6c757d;
+  --gray: #6c757d;
+
+  --bg-form: #ffffff;
+  --cards-bg: #adadb2;
+  --bg-tabel: #e9ecef;
+  --bg-mines: #f5f7ff;
+  --bg-black: #ffffff;
+  --bg-overlay: #00000014;
+  --bg-case: #ffffff;
+  --bg-button: #e9ecef;
+
+  --color-chat: #bdc2c9;
+  --color-dark: #e0e3ff;
+  --color-lines: #d1d5db;
+  --color-link: #1f73d1;
+  --active-link: #004bbc;
+
+  --bg-main-gradient: linear-gradient(180deg, #eceaea 0%, #e8e9e9 50%, #e8eaec 100%);
+  --bg-header-gradient: linear-gradient(180deg, #e8dfdf 0%, #f5f6f7 100%);
+  --shadow-soft: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0px 0px 16px rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
+  --color-btn: var(--btn);
   --color-bg-button: var(--bg-button);
   --color-bg-case: var(--bg-case);
   --color-bg-overlay: var(--bg-overlay);
   --color-bg-black: var(--bg-black);
   --color-gray: var(--gray);
-  --text-color-black: var(--color-black);
+  --text-color-blacked: var(--color-blacked);
   --color-background: var(--background-main);
   --text-color-white: var(--color-white);
   --text-color-red: var(--color-red);
@@ -214,11 +248,11 @@
   }
 
   .bg-main {
-    background: linear-gradient(180deg, #0f0c29 0%, #312c5f 50%, #24243e 100%);
+    background: var(--bg-main-gradient);
   }
 
   .bg-header {
-    background: linear-gradient(180deg, #0f0c29 0%, #312c5f 50%, #24243e 100%);
+    background: var(--bg-header-gradient);
   }
 
   @media (max-width: 767px) {
@@ -338,6 +372,8 @@
       0 0 18px rgba(255, 190, 60, 0.8),
       0 0 32px rgba(255, 150, 0, 0.7),
       0 0 48px rgba(255, 120, 0, 0.5);
+  }
+
   @keyframes ripple {
     0% {
       box-shadow: 0 0 0 0 rgba(255, 205, 113, 0.6);

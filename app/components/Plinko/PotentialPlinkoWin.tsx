@@ -1,9 +1,11 @@
 'use client';
 
 import { usePlinkoResult } from '@/hooks/plinko/usePlinkoResult';
+import { useTranslation } from 'react-i18next';
 
 export default function PotentialPlinkoWin() {
   const { mode, multiplier, winAmount } = usePlinkoResult();
+  const { t } = useTranslation();
 
   return (
     <div className="mt-8 mb-2">
@@ -11,7 +13,7 @@ export default function PotentialPlinkoWin() {
 
       <div className="flex justify-between mb-2">
         <p className="text-gray">
-          {mode === 'potential' ? 'Potential Multiplier:' : 'Final Multiplier:'}
+          {mode === 'potential' ? t('history.multiplier') : t('history.multiplier')}
         </p>
         <p className={multiplier >= 1 ? 'text-green font-bold' : 'text-red font-bold'}>
           {multiplier.toFixed(2)}x
@@ -19,7 +21,9 @@ export default function PotentialPlinkoWin() {
       </div>
 
       <div className="flex justify-between">
-        <p className="text-gray">{mode === 'potential' ? 'Potential Result:' : 'Result:'}</p>
+        <p className="text-gray">
+          {mode === 'potential' ? t('games.crash.potentialWin') : t('games.crash.potentialWin')}
+        </p>
         <p className={winAmount >= 0 ? 'text-green font-bold' : 'text-red font-bold'}>
           {winAmount >= 0 ? '+' : ''}${winAmount.toFixed(2)}
         </p>
