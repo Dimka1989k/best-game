@@ -5,10 +5,10 @@ import plinkCards from '@/assets/image-plinko.svg';
 
 export interface GameCardItem {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
+  badgeKey: string;
   href: string;
-  badge: string;
   badgeWidthClass: string;
   background: string;
 }
@@ -16,37 +16,37 @@ export interface GameCardItem {
 export const GAME_LIST: GameCardItem[] = [
   {
     id: 'crash',
-    title: 'Crash',
-    description: 'Watch the multiplier rise and cash out before it’s gone',
+    titleKey: 'games.crash.title',
+    descriptionKey: 'games.crash.description',
+    badgeKey: 'common.top',
     href: '/crash',
-    badge: 'Top',
     badgeWidthClass: 'w-14.5',
     background: rocketCards.src,
   },
   {
     id: 'case',
-    title: 'Case',
-    description: 'Open cases and win random rewards',
+    titleKey: 'games.cases.title',
+    descriptionKey: 'games.cases.description',
+    badgeKey: 'common.popular',
     href: '/case',
-    badge: 'Popular',
     badgeWidthClass: 'w-full max-w-23',
     background: casesCards.src,
   },
   {
     id: 'mines',
-    title: 'Mines',
-    description: 'Avoid the mines and collect bigger rewards',
+    titleKey: 'games.mines.title',
+    descriptionKey: 'games.mines.description',
+    badgeKey: 'common.hot',
     href: '/mines',
-    badge: 'Hot',
     badgeWidthClass: 'w-full max-w-14.5',
     background: minesCards.src,
   },
   {
     id: 'plinko',
-    title: 'Plinko',
-    description: 'Drop the ball, watch it bounce, and win prizes',
+    titleKey: 'games.plinko.title',
+    descriptionKey: 'games.plinko.description',
+    badgeKey: 'common.new',
     href: '/plinko',
-    badge: 'New',
     badgeWidthClass: 'w-14.5',
     background: plinkCards.src,
   },

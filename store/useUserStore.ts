@@ -6,6 +6,7 @@ interface UserState {
   totalWagered?: number;
   gamesPlayed?: number;
   totalWon?: number;
+  avatarURL?: string;
 
   setUser(data: Partial<UserState>): void;
   setBalance(balance: number): void;
@@ -34,5 +35,6 @@ export const useUserStore = create<UserState>((set) => ({
       totalWagered: undefined,
       gamesPlayed: undefined,
       totalWon: undefined,
+      avatarURL: undefined,
     }),
 }));

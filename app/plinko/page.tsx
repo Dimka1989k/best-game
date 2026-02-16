@@ -7,8 +7,11 @@ import { useEffect } from 'react';
 import { usePlinkoStore } from '@/store/usePlinkoStore';
 
 import PlinkoField from '../components/Plinko/PlinkoField';
+import { useTranslation } from 'react-i18next';
 
 export default function Plinko() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     usePlinkoStore.getState().resetGame();
   }, []);
@@ -22,7 +25,7 @@ export default function Plinko() {
       </div>
       <div>
         <p className="2xl:text-center text-white text-satoshi text-[clamp(24px,2vw,32px)]! mb-4 mt-10 max-md:mt-6 max-md:text-2xl!">
-          Game history
+          {t('history.title')}
         </p>
         <div className="mb-5 border-b border-bg-tabel">
           <PlinkoHistoryTable />

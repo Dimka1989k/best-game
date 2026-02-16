@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button';
 import { useMinesStore } from '@/store/useMinesStore';
 import { BET_MINES_BUTTONS, type BetMinesAction } from './MinesBetButtons.constants';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 type Props = {
   onSyncAmount: () => void;
@@ -11,8 +13,10 @@ type Props = {
 
 export function MinesBetAdjustButtons({ onSyncAmount, getCurrentAmount }: Props) {
   const store = useMinesStore.getState();
+  const { playMusic } = useMusic();
 
   const handleAction = (action: BetMinesAction) => {
+    playMusic(Music.buttonBet);
     store.setBetAmount(getCurrentAmount());
     switch (action) {
       case 'half':

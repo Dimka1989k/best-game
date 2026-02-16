@@ -26,8 +26,10 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { loginSchema, type LoginFormValues } from '@/lib/validators/auth.schema';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { PasswordValidationMessage } from '@/utils/PasswordValidationMessage';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const loginMutation = useLogin();
 
@@ -74,9 +76,11 @@ export default function Login() {
         <Image src={Logo} alt="Logo" className="max-md:size-6" />
       </div>
       <h1 className="text-white text-satoshi mt-4 mb-2 max-md:mb-1 max-md:text-satoshi-small!">
-        Blaze Casino
+        {t('auth.blaze')}
       </h1>
-      <h2 className="text-gray text-inter-h2 mb-10 max-md:text-inter-main!">Welcome back!</h2>
+      <h2 className="text-gray text-inter-h2 mb-10 max-md:text-inter-main!">
+        {t('auth.welcomeBack')}
+      </h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitForm)} className="w-full max-w-115.5">
           <FormField
@@ -84,12 +88,12 @@ export default function Login() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-manrope text-gray">Email</FormLabel>
+                <FormLabel className="text-manrope text-gray">{t('auth.email')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="Enter email"
-                    className="bg-white radius-sm h-11 w-full max-w-95.5 text-black text-inter-secondary"
+                    placeholder={t('auth.enterEmail')}
+                    className="bg-white radius-sm h-11 w-full max-w-95.5 text-blacked! text-inter-secondary"
                     style={
                       form.formState.isSubmitted && isEmailValid
                         ? {
@@ -113,14 +117,14 @@ export default function Login() {
             name="password"
             render={({ field, fieldState }) => (
               <FormItem className="mt-4">
-                <FormLabel className="text-manrope text-gray">Password</FormLabel>
+                <FormLabel className="text-manrope text-gray">{t('auth.password')}</FormLabel>
                 <div className="relative w-full max-w-95.5">
                   <FormControl>
                     <Input
                       {...field}
                       type={showPassword ? 'text' : 'password'}
-                      placeholder="Enter password"
-                      className="bg-white radius-sm h-11 w-full text-black text-inter-secondary pr-10"
+                      placeholder={t('auth.enterPassword')}
+                      className="bg-white radius-sm h-11 w-full text-blacked! text-inter-secondary pr-10"
                       style={
                         form.formState.isSubmitted && isPasswordValid
                           ? {
@@ -135,7 +139,7 @@ export default function Login() {
                   <Button
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-black transition cursor-pointer px-0!"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-blacked! transition cursor-pointer px-0!"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
@@ -154,21 +158,21 @@ export default function Login() {
             disabled={loginMutation.isPending}
             type="submit"
             variant="default"
-            className="transition-shadow duration-200 mb-8 mt-8 button-red w-full max-w-95.5 radius-pill py-3.5 h-full max-h-12 text-white! text-inter-main relative px-0 cursor-pointer"
+            className="transition-shadow duration-200 mb-8 mt-8 button-red w-full max-w-95.5 radius-pill py-3.5 h-full max-h-12 text-btn! text-inter-main relative px-0 cursor-pointer"
           >
-            <span className="mx-auto">Log in</span>
+            <span className="mx-auto">{t('auth.login')}</span>
             <span className="absolute right-2 flex items-center">
               <Image src={loginIcon} alt="loginIcon" />
             </span>
           </Button>
           <Link href="/auth/register">
             <p className="text-blue active:text-active-link hover:text-color-link transition-colors duration-200 ease-in-out text-center mb-4 max-md:mb-2 text-manrope">
-              Don`t have an account? Register
+              {t('auth.dontHaveAccount')}
             </p>
           </Link>
           <div className="bg-color-lines w-full max-w-95.5 h-px"></div>
           <p className="text-gray text-center text-inter-small mt-4 max-md:mt-2">
-            Your account data is stored locally in your browser
+            {t('auth.accountStored')}
           </p>
         </form>
       </Form>

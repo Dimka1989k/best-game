@@ -18,11 +18,16 @@ import { resetCaseItemImages } from '@/app/components/Сase/getCaseItemImage';
 import { useUserStore } from '@/store/useUserStore';
 import { useOpenCase } from '@/hooks/cases/useOpenCase';
 import { CasePhase } from '@/types/cases.types';
+import { useTranslation } from 'react-i18next';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 export default function CasePage() {
   const router = useRouter();
   const { slug } = useParams<{ slug: string }>();
   const { data } = useCaseDetails(slug);
+  const { t } = useTranslation();
+  const { playMusic, stopMusic } = useMusic();
 
   const balance = useUserStore((s) => s.balance);
 
@@ -34,6 +39,8 @@ export default function CasePage() {
   if (!data) return null;
 
   const handleOpenCase = async () => {
+    playMusic(Music.button);
+    playMusic(Music.carousel);
     if (balance < data.price) {
       alert('Not enough balance');
       return;
@@ -45,6 +52,7 @@ export default function CasePage() {
     const res = await openCase.mutateAsync();
 
     if (withoutAnimation) {
+      stopMusic(Music.carousel);
       useCaseStore.setState({
         result: res,
         phase: CasePhase.RESULT,
@@ -89,7 +97,7 @@ export default function CasePage() {
               disabled={openCase.isPending}
               className="flex items-center justify-center button-red text-white! radius-pill text-inter-bold w-full max-w-51 h-12 cursor-pointer"
             >
-              Open Case
+              {t('games.cases.open')}
             </Button>
             <div className="flex items-center max-md:mt-4">
               <Switch
@@ -97,14 +105,16 @@ export default function CasePage() {
                 onCheckedChange={setWithoutAnimation}
                 className="ml-8 max-md:ml-0 cursor-pointer"
               />
-              <p className="ml-4 text-inter-bold text-gray">without animation</p>
+              <p className="ml-4 text-inter-bold text-gray">{t('games.cases.withoutAnimation')}</p>
             </div>
           </div>
         </div>
       </div>
       <CaseContent items={data.items} selectedCaseName={data.name} />
       <div className="mt-10">
-        <p className="text-white text-satoshi max-md:text-satoshi-small! mb-4">Game history</p>
+        <p className="text-white text-satoshi max-md:text-satoshi-small! mb-4">
+          {t('history.title')}
+        </p>
         <div className="border-b border-bg-tabel">
           <CaseHistory />
         </div>

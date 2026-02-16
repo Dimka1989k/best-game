@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { useCrashStore } from '@/store/useCrashStore';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 import { BET_ADJUST_BUTTONS, type BetAdjustAction } from './crashBetButtons.constants';
 
@@ -12,8 +14,10 @@ type Props = {
 
 export function CrashBetAdjustButtons({ onSyncAmount, getCurrentAmount }: Props) {
   const store = useCrashStore.getState();
+  const { playMusic } = useMusic();
 
   const handleAction = (action: BetAdjustAction) => {
+    playMusic(Music.buttonBet);
     store.setAmount(getCurrentAmount());
 
     switch (action) {

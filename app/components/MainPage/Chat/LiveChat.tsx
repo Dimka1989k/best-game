@@ -14,8 +14,10 @@ import { ChatMessageItem } from './ChatMessageItem';
 import type { ChatMessage } from '@/types/chat.types';
 import { useChatHistory } from '@/hooks/useChatHistory';
 import { useChatSocket } from '@/hooks/useChatSocket';
+import { useTranslation } from 'react-i18next';
 
 export default function LiveChat() {
+  const { t } = useTranslation();
   const [text, setText] = useState('');
   const [liveMessages, setLiveMessages] = useState<ChatMessage[]>([]);
 
@@ -23,15 +25,22 @@ export default function LiveChat() {
 
   const messages = useMemo(() => {
     const map = new Map<string, ChatMessage>();
-    (data?.messages ?? []).forEach((m: ChatMessage) => {
+
+    const normalize = (m: ChatMessage): ChatMessage => ({
+      ...m,
+      avatarURL:
+        m.avatarURL ?? (m.userId && typeof m.userId === 'object' ? m.userId.avatarURL : undefined),
+    });
+
+    (data?.messages ?? []).forEach((m) => {
       if (m.username !== 'Chat Bot') {
-        map.set(m._id, m);
+        map.set(m._id, normalize(m));
       }
     });
 
-    liveMessages.forEach((m: ChatMessage) => {
+    liveMessages.forEach((m) => {
       if (m.username !== 'Chat Bot') {
-        map.set(m._id, m);
+        map.set(m._id, normalize(m));
       }
     });
 
@@ -84,11 +93,11 @@ export default function LiveChat() {
       <Image src={iconChat} alt="Chat" className="mb-2 mx-auto" />
       <div className="bg-gray w-62.5 h-px mb-2 mx-auto" />
       <div className="flex justify-between px-10 mb-6">
-        <p className="text-inter-secondary text-white">250 online</p>
+        <p className="text-inter-secondary text-white">250 {t('common.online')}</p>
         <p className="text-inter-secondary bg-[linear-gradient(180deg,#ffcd71_0%,#e59603_100%)] bg-clip-text text-transparent">
-          48 friends
+          48 {t('common.friends')}
         </p>
-        <p className="text-inter-secondary text-white">54 playing</p>
+        <p className="text-inter-secondary text-white">54 {t('common.playing')}</p>
       </div>
       <div ref={parentRef} className="h-155 overflow-y-auto px-10 pt-6.5 scrollbar-hide">
         {isLoading ? (
@@ -136,7 +145,7 @@ export default function LiveChat() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleInputKeyDown}
-          placeholder="Write a message..."
+          placeholder={t('common.writeMessage')}
         />
         <Button
           className="flex cursor-pointer items-center justify-center bg-color-chat radius-pill p-0 h-11 w-11 transition-all duration-200"

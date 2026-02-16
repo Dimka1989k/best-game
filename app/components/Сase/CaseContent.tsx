@@ -6,6 +6,7 @@ import { getCaseItemImage } from './getCaseItemImage';
 import { normalizeCaseItemName } from './normalizeCaseItemName';
 import { CASE_NAME_TO_CATEGORY } from './case-category.map';
 import type { CaseItemDTO } from '@/types/cases.types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   items: CaseItemDTO[];
@@ -13,7 +14,9 @@ type Props = {
 };
 
 export default function CaseContent({ items, selectedCaseName }: Props) {
+  const { t } = useTranslation();
   useEffect(() => {}, [items]);
+
   const category = selectedCaseName ? CASE_NAME_TO_CATEGORY[selectedCaseName] : undefined;
 
   const visibleItems = useMemo(() => items.slice(0, 24), [items]);
@@ -23,7 +26,7 @@ export default function CaseContent({ items, selectedCaseName }: Props) {
   return (
     <div className="mt-14 max-md:mt-10">
       <p className="text-white text-satoshi max-md:text-satoshi-small! mb-6 max-md:mb-4">
-        Case Content
+        {t('games.cases.content')}
       </p>
       <div className="flex gap-4 flex-wrap mx-auto max-sm:px-3.5">
         {visibleItems.map((item) => (

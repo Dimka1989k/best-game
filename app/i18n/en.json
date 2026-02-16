@@ -1,0 +1,168 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "loadingLeaderboard": "Loading leaderboard...",
+    "failedLeaderboard": "Failed to load leaderboard",
+    "noLeaderboard": "No leaderboard data",
+
+    "playing": "playing",
+    "online": "online",
+    "friends": "friends",
+    "writeMessage": "Write a message...",
+    "freePlay": "Free play",
+    "top": "Top",
+    "popular": "Popular",
+    "hot": "Hot",
+    "new": "New",
+    "won": "Won",
+
+    "lost": "Lost",
+    "win": "Win",
+    "loss": "Loss",
+    "totalGame": "Total game",
+
+    "time": "Time",
+    "location": "Location"
+  },
+
+  "auth": {
+    "blaze": "Blaze Casino",
+    "casino": "Casino",
+    "welcomeBack": "Welcome back!",
+    "invalidCredentials": "Invalid email or password",
+    "userNotFound": "User does not exist",
+    "tooManyAttempts": "Too many attempts. Please try later",
+    "somethingWrong": "Something went wrong. Please try again",
+    "emailInvalid": "This email is not valid",
+    "emailRequired": "Email is required",
+    "usernameInvalid": "This username is not valid",
+    "userlogOut": "You have logged out",
+
+    "passwordMustContain": "Password must contain",
+    "uppercase": "At least one uppercase letter (A–Z)",
+    "lowercase": "At least one lowercase letter (a–z)",
+    "number": "At least one number (0–9)",
+    "special": "At least one special character (!@#$%^&*)",
+
+    "dontHaveAccount": "Don’t have an account? Register",
+    "alreadyHaveAccount": "Already have an account? Login",
+    "accountStored": "Your account data is stored locally in your browser",
+
+    "username": "Username",
+    "enterUsername": "Enter username",
+    "email": "Email",
+    "enterEmail": "Enter email",
+    "password": "Password",
+    "enterPassword": "Enter password",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "signUp": "Sign Up"
+  },
+
+  "navigation": {
+    "inventory": "Inventory",
+    "settings": "Settings",
+    "english": "English",
+    "ukrainian": "Ukrainian",
+    "leaderboard": "Leaderboard",
+    "topPlayers": "Top players",
+    "games": "games",
+    "theme": "Theme",
+    "dark": "Dark",
+    "light": "Light",
+    "lang": "Language",
+    "en": "EN",
+    "ua": "UA",
+    "sound": "Sound",
+    "on": "On",
+    "off": "Off",
+    "win": "win"
+  },
+
+  "bonus": {
+    "minuteBonus": "Minute Bonus",
+    "bonusAmount": "Bonus Amount",
+    "availableNow": "Available now!",
+    "baseAmount": "Base Amount",
+    "wagerBonus": "Wager Bonus",
+    "gamesBonus": "Games Bonus",
+    "nextClaim": "Next Claim At",
+    "claimBonus": "Claim Bonus"
+  },
+
+  "games": {
+    "crash": {
+      "title": "Crash",
+      "description": "Watch the multiplier rise and cash out before it's gone",
+      "configuration": "Crash Configuration",
+      "currentMultiplier": "Current Multiplier",
+      "potentialWin": "Potential Win",
+      "currentPayout": "Current Payout",
+      "waiting": "Waiting for bets..."
+    },
+
+    "cases": {
+      "title": "Cases",
+      "description": "Open cases and win random rewards",
+      "content": "Case content",
+      "open": "Open Case",
+      "withoutAnimation": "without animation",
+      "skipAnimation": "skip animation",
+
+      "blackStandard": "Black Standard",
+      "blackPlus": "Black Plus",
+      "blackPro": "Black Pro",
+      "blackElite": "Black Elite",
+      "sellFor": "Sell for",
+      "tryAgain": "Try again",
+      "itemDisplay": "The item will be displayed"
+    },
+
+    "mines": {
+      "title": "Mines",
+      "description": "Avoid the mines and collect bigger rewards",
+      "configuration": "Mines Configuration",
+      "currentMultiplier": "Current Multiplier",
+      "winAmount": "Win Amount",
+      "mineAmount": "Mine Amount",
+      "gridSize": "Grid Size"
+    },
+
+    "plinko": {
+      "title": "Plinko",
+      "description": "Drop the ball, watch it bounce, and win prizes",
+      "configuration": "Plinko Configuration",
+      "risk": "Risk",
+      "row": "Row",
+      "noGames": "No games yet"
+    }
+  },
+
+  "bet": {
+    "betAmount": "Bet Amount",
+    "autoCashout": "Auto Cashout (optional)",
+    "example": "e.g 2.00",
+    "placeBet": "Place Bet",
+    "cashout": "Cashout"
+  },
+
+  "history": {
+    "title": "Game history",
+    "time": "Time",
+    "case": "Case",
+    "item": "Item",
+    "rarity": "Rarity",
+    "value": "Value",
+    "profit": "Profit",
+    "bet": "Bet",
+    "multiplier": "Multiplier",
+    "winAmount": "Win Amount",
+    "status": "Status",
+    "lines": "Lines",
+    "risk": "Risk",
+    "loadingHistory": "Loading history…",
+    "failedHistory": "Failed to load history",
+    "noCase": "No case openings yet"
+  }
+}

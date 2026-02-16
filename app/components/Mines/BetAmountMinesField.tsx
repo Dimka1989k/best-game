@@ -8,6 +8,7 @@ import { useMinesStore } from '@/store/useMinesStore';
 
 import dollarIcon from '@/assets/icon-dollar.svg';
 import { MinesBetAdjustButtons } from './MinesBetAdjustButtons';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   amount: string;
@@ -16,6 +17,7 @@ type FormValues = {
 export default function BetAmountMinesField() {
   const { register, getValues, setValue } = useFormContext<FormValues>();
   const store = useMinesStore.getState();
+  const { t } = useTranslation();
 
   const syncAmountFromStore = () => {
     setValue('amount', String(store.betAmount), {
@@ -26,7 +28,7 @@ export default function BetAmountMinesField() {
 
   return (
     <FormItem className="text-left">
-      <FormLabel className="text-gray! text-inter-secondary">Bet Amount</FormLabel>
+      <FormLabel className="text-gray! text-inter-secondary">{t('bet.betAmount')}</FormLabel>
       <div className="relative">
         <Image src={dollarIcon} alt="" className="absolute top-2.5 left-2" />
         <FormControl>

@@ -6,6 +6,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { FormControl, FormItem, FormLabel } from '@/components/ui/form';
+import { useTranslation } from 'react-i18next';
 
 function handleAutoCashoutToggle(
   checked: boolean,
@@ -23,6 +24,7 @@ function handleAutoCashoutToggle(
 
 export const AutoCashoutField = memo(function AutoCashoutField() {
   const { control, setValue, clearErrors } = useFormContext();
+  const { t } = useTranslation();
 
   const { field: autoCashout } = useController({
     name: 'autoCashout',
@@ -36,14 +38,14 @@ export const AutoCashoutField = memo(function AutoCashoutField() {
 
   return (
     <FormItem className="text-left">
-      <FormLabel className="text-gray! text-inter-secondary">Auto Cashout (optional)</FormLabel>
+      <FormLabel className="text-gray! text-inter-secondary">{t('bet.autoCashout')}</FormLabel>
       <div className="relative">
         <FormControl>
           <Input
             type="number"
             {...autoCashout}
             disabled={!enabled.value}
-            placeholder="e.g 2.00"
+            placeholder={t('bet.example')}
             className="text-gray! text-inter-main w-full mb-8 bg-color-chat border-none focus-visible:none radius-sm h-11"
           />
         </FormControl>

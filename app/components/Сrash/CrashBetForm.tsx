@@ -12,6 +12,7 @@ import { AutoCashoutField } from './AutoCashoutField';
 import { CrashBetActions } from './CrashBetActions';
 import { useController } from 'react-hook-form';
 import { CrashGameState } from '@/types/crash.types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   state: CrashGameState;
@@ -42,6 +43,7 @@ function handleCrashBetSubmit(
 export const CrashBetForm = memo(function CrashBetForm({ state }: Props) {
   const setAmount = useCrashStore((s) => s.setAmount);
   const { placeBet, cashout } = useCrashGame();
+  const { t } = useTranslation();
 
   const methods = useForm<FormValues>({
     mode: 'onChange',
@@ -81,7 +83,7 @@ export const CrashBetForm = memo(function CrashBetForm({ state }: Props) {
         className="bg-cards-bg radius-md py-6 px-8 w-108 max-lg:w-full text-center h-full"
       >
         <p className="text-white text-satoshi text-[clamp(24px,2vw,32px)]! mb-8 max-md:text-2xl!">
-          Crash Configuration
+          {t('games.crash.configuration')}
         </p>
         <BetAmountField />
         <AutoCashoutField />

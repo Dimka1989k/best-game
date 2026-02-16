@@ -3,13 +3,17 @@
 import { Button } from '@/components/ui/button';
 import { usePlinkoStore } from '@/store/usePlinkoStore';
 import { BET_PLINKO_BUTTONS, type BetPlinkoAction } from './PlinkoBetButtons.constants';
+import { useMusic } from '@/hooks/useMusic';
+import { Music } from '@/types/music.types';
 
 export function PlinkoBetAdjustButtons() {
   const half = usePlinkoStore((s) => s.halfAmount);
   const double = usePlinkoStore((s) => s.doubleAmount);
   const max = usePlinkoStore((s) => s.maxAmount);
+  const { playMusic } = useMusic();
 
   const handleAction = (action: BetPlinkoAction) => {
+    playMusic(Music.buttonBet);
     switch (action) {
       case 'half':
         half();

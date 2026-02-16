@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { Toaster } from '@/components/ui/sonner';
+import { ClientRoot } from './ClientRoot';
 
 import { HideOnPath } from './routing/HideOnPath';
 import { AppSidebar } from './components/MainPage/AppSideBar';
@@ -11,6 +12,7 @@ import { AppSidebar } from './components/MainPage/AppSideBar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import Header from './components/MainPage/Header';
 import { AppBootstrap } from './AppBootstrap';
+import I18nProvider from '@/providers/I18nProvider';
 
 const interFont = Inter({
   variable: '--font-inter',
@@ -45,19 +47,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          (function () {
+            try {
+              var theme = localStorage.getItem('theme');
+              if (theme === 'light') {
+                document.documentElement.classList.add('light');
+              } else {
+                document.documentElement.classList.remove('light');
+              }
+            } catch (e) {}
+          })();
+        `,
+          }}
+        />
+      </head>
       <body className={`${interFont.variable} ${manropeFont.variable} ${satoshi.variable} bg-main`}>
-        <QueryProvider>
-          <SidebarProvider defaultOpen={false}>
-            <AppBootstrap />
-            <HideOnPath path={['/auth/login', '/auth/register']}>
-              <Header />
-              <AppSidebar />
-            </HideOnPath>
-            {children}
-            <Toaster />
-          </SidebarProvider>
-        </QueryProvider>
+        <I18nProvider>
+          <QueryProvider>
+            <SidebarProvider defaultOpen={false}>
+              <AppBootstrap />
+              <HideOnPath path={['/auth/login', '/auth/register']}>
+                <Header />
+                <AppSidebar />
+              </HideOnPath>
+              <ClientRoot>{children}</ClientRoot>
+              <Toaster className="text-blacked!" />
+            </SidebarProvider>
+          </QueryProvider>
+        </I18nProvider>
       </body>
     </html>
   );
